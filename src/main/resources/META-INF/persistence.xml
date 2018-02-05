@@ -3,18 +3,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 version="2.0">
  
-<persistence-unit name="V2CRM_PersistenceUnit" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="CmpMgmt_PersistenceUnit" transaction-type="RESOURCE_LOCAL">
 <description>
 Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
 </description>
 <!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
-<class>com.twenty20.domain.Base</class>
-<class>com.twenty20.domain.Address</class>
-<class>com.twenty20.domain.Company</class>
-<class>com.twenty20.domain.Project</class>
-<class>com.twenty20.domain.Request</class>
-<class>com.twenty20.domain.Rebate</class>
- <class>com.twenty20.domain.Response</class>
+<class>com.cognizant.domain.Base</class>
+<class>com.cognizant.domain.Vendor</class>
 	<properties>
 	
 	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

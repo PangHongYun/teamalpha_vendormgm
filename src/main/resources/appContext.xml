@@ -20,12 +20,9 @@
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd"
         default-lazy-init="true" >
 
-<bean id="confUtil" class="com.twenty20.util.ConfUtil">
-	<property name="documentsLocation" value="D:\apache-tomcat-8.0.3\webapps\file-server"></property>
-	<property name="documentsServerBaseUrl" value="http://localhost/file-server/"></property>
-</bean>
 
- <context:component-scan base-package="com.twenty20"  />
+
+ <context:component-scan base-package="com.cognizant"  />
 
 <tx:annotation-driven transaction-manager="transactionManagerNonJTA" />
  
@@ -33,16 +30,11 @@
 	
 	<bean id="dataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-<!--         <property name="jdbcUrl" value="jdbc:mysql://mariadb:3306/hirebuddydb" /> -->
-<!-- 		 <property name="user" value="hirebuddy" /> -->
-<!--         <property name="password" value="Welcome@1" />  -->
 
-<!-- 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/twenty20" />   -->
-<!-- 		<property name="user" value="root" />  -->
-<!-- 		<property name="password" value="" /> -->
-			<property name="jdbcUrl" value="jdbc:mysql://ec2-13-59-126-83.us-east-2.compute.amazonaws.com:3306/twenty20" />  
-		<property name="user" value="twentyuser" /> 
-		<property name="password" value="Welcome@123" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/CompanyMgmtSystem" />  
+		<property name="user" value="root" /> 
+		<property name="password" value="training123" />
+
 
         <property name="initialPoolSize" value="3" />
 		<property name="minPoolSize" value="6" />
@@ -68,15 +60,13 @@
        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
        <!--TODO: suppose to work without classpath -->
        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-       <property name="persistenceUnitName" value="V2CRM_PersistenceUnit" />
+       <property name="persistenceUnitName" value="CmpMgmt_PersistenceUnit" />
        <property name="dataSource" ref="dataSource" />
 		  <property name="jpaVendorAdapter"> 
 		       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> 
-		           <!-- <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" /> --> 
-		           <!-- <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" /> -->
+		   
 		           <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-		           <!-- <property name="databasePlatform" value="org.hibernate.dialect.OracleDialect" /> -->
-		           <property name="showSql" value="false" /> 
+		              <property name="showSql" value="false" /> 
 		           <property name="generateDdl" value="true" />
 		          
 		       </bean> 
@@ -87,25 +77,15 @@
        <property name="entityManagerFactory" ref="entityManagerFactoryNonJTA" />
        <property name="defaultTimeout" value="1800"></property>
    </bean>
+   
+   
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
     
     
-    <bean id="companyWebService" class="com.twenty20.webservices.CompanyWebService" />
-    <bean id="userWebService" class="com.twenty20.webservices.UserWebService" />
-    <bean id="rebateWebService" class="com.twenty20.webservices.RebateWebService" />
+  
     
-    <jaxrs:server id="twenty20Sys" address="/rest/">
-		<jaxrs:serviceBeans>
-			<ref bean="companyWebService" />
-			<ref bean="userWebService" />
-			<ref bean="rebateWebService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<ref bean="jsonProvider" />
-		</jaxrs:providers>
-	</jaxrs:server>
- 
+   
 </beans>
  
