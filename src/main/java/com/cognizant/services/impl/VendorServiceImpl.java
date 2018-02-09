@@ -42,6 +42,8 @@ public class VendorServiceImpl extends BaseServiceImpl<Long, Vendor> implements 
     	dao.setEntityManager(entityManager);
     }
 
+    
+    
 	@Override
 	public void saveOrUpdate(Vendor vendor) throws CompanyMgmtException {
 		dao.persist(vendor);

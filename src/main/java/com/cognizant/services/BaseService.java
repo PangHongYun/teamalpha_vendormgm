@@ -23,7 +23,8 @@ public interface BaseService<Long,E> {
 	public E find(long id) throws CompanyMgmtException;
 	
 	public List<E> findAll() throws CompanyMgmtException;
-        public List<E> find(int startFrom, int maxResults) throws CompanyMgmtException;
+	
+    public List<E> find(int startFrom, int maxResults) throws CompanyMgmtException;
 	
     public void save(E entity) throws CompanyMgmtException;
     
