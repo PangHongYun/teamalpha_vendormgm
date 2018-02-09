@@ -49,8 +49,8 @@ public class AccountServiceImpl extends BaseServiceImpl<Long, Account>
 	public void saveOrUpdate(Account account) throws CompanyMgmtException {
 		//val
 		
-		String name = account.getAccount_username();
-		Account account2 = getUniqueAccount(name);
+		String email = account.getAccount_email();
+		Account account2 = getUniqueAccount(email);
 		if ( account2== null) {
 			dao.persist(account);
 		}
@@ -63,10 +63,10 @@ public class AccountServiceImpl extends BaseServiceImpl<Long, Account>
 	}
 
 	@Override
-	    public Account getUniqueAccount(String acc_uname) throws CompanyMgmtException {
+	    public Account getUniqueAccount(String account_email) throws CompanyMgmtException {
 	        //Company.getUniqueCompany
 	        Map<String, String> queryParams = new HashMap<String, String>();
-	        queryParams.put("account_username", acc_uname);
+	        queryParams.put("account_email", account_email);
 	        
 	        List<Account> accs = findByNamedQueryAndNamedParams("Account.getUniqueAccount", queryParams);
 	        if(accs.size() > 1){
