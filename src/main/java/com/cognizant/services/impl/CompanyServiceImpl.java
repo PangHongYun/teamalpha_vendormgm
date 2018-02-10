@@ -16,12 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 
 import com.cognizant.common.CompanyMgmtException;
 import com.cognizant.dao.CompanyDao;
-import com.cognizant.dao.EmployeeDao;
 import com.cognizant.dao.JPADAO;
 import com.cognizant.domain.Company;
-import com.cognizant.domain.Employee;
 import com.cognizant.services.CompanyService;
-import com.cognizant.services.EmployeeService;
 
 @Service("companyService")
 @org.springframework.transaction.annotation.Transactional(propagation = Propagation.REQUIRED, rollbackFor = CompanyMgmtException.class)
@@ -69,12 +66,11 @@ public class CompanyServiceImpl extends BaseServiceImpl<Long, Company>
 	
 	@Override
 	public void saveOrUpdate(Company company) throws CompanyMgmtException {
-	Company comp = findByRegistrationNumber(company.getCompanyRegistrationNumber());
+	Company comp = companyDao.findByCompanyRegistrationNumber(company.getCompanyRegistrationNumber());
 	
 	if(comp == null){
 		companyDao.persist(company);
 	}else{
-		//System.out.println("duplicate");
 		company.setId(comp.getId());//incase we search via empty id
 		Mapper mapper = new DozerBeanMapper();
 		mapper.map(company, comp);
@@ -86,7 +82,6 @@ public class CompanyServiceImpl extends BaseServiceImpl<Long, Company>
 	public Company findByRegistrationNumber(String companyRegistrationNumber) {
 		Map<String, String> queryParams = new HashMap<String, String>();
 		queryParams.put("companyRegistrationNumber", companyRegistrationNumber);
-		
 		
 		List<Company> com = findByNamedQueryAndNamedParams("Company.findByRegistrationNumber", queryParams);
 		if(com.size() > 1){
@@ -113,7 +108,7 @@ public class CompanyServiceImpl extends BaseServiceImpl<Long, Company>
 
 
 
-
+	
 
 	
 }

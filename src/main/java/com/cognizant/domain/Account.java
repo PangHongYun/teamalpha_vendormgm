@@ -1,49 +1,48 @@
 package com.cognizant.domain;
 
-
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import com.cognizant.common.CompanyMgmtException;
+
+
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Account.getUniqueAccount", 
-            query="SELECT a FROM Account a WHERE a.account_username=:account_username")
+	@NamedQuery(name = "Account.getUniqueAccount", query = "SELECT a FROM Account a WHERE a.acc_email=:acc_email"),
+	@NamedQuery(name = "Account.authenticateAccount", query = "SELECT a FROM Account a WHERE a.acc_email=:acc_email AND a.acc_password=:acc_password")
 })
-public class Account extends Base{
-	
-	
-	
-	String account_username;
-	
-	String account_password;	
-	
-	int account_type;
+public class Account extends Base {
 
-	public String getAccount_username() {
-		return account_username;
+private	String acc_email;
+
+private	String acc_password;
+
+private	int acc_type;
+
+	public String getAcc_email() {
+		return acc_email;
 	}
 
-	public void setAccount_username(String account_username) {
-		this.account_username = account_username;
+	public void setAcc_email(String acc_email) {
+		this.acc_email = acc_email;
 	}
 
-	public String getAccount_password() {
-		return account_password;
+	public String getAcc_password() {
+		return acc_password;
 	}
 
-	public void setAccount_password(String account_password) {
-		this.account_password = account_password;
+	public void setAcc_password(String acc_password) {
+		this.acc_password = acc_password;
 	}
 
-	public int getAccount_type() {
-		return account_type;
+	public int getAcc_type() {
+		return acc_type;
 	}
 
-	public void setAccount_type(int account_type) {
-		this.account_type = account_type;
+	public void setAcc_type(int acc_type) {
+		this.acc_type = acc_type;
 	}
-	
+
 }
+

@@ -13,35 +13,20 @@ import javax.persistence.NamedQuery;
 		query="SELECT c FROM Company c WHERE c.companyRegistrationNumber=:companyRegistrationNumber")})
 public class Company extends Base {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1513358315407795427L;
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	private String companyAddress;
-	
-	private int companyContactNumber;
-	
 	private String companyEmail;
-	
+	private int companyContactNumber;
 	private String companyName;
 	
 	@Unique
 	private String companyRegistrationNumber;
-
-	private String notificationType;
-
+	private String passWord;
+	private String userName;
+	
 	public String getCompanyAddress() {
 		return companyAddress;
 	}
-	public int getCompanyContactNumber() {
-		return companyContactNumber;
-	}
-	
+
 	public String getCompanyEmail() {
 		return companyEmail;
 	}
@@ -54,17 +39,17 @@ public class Company extends Base {
 		return companyRegistrationNumber;
 	}
 
-
-	public String getNotificationType() {
-		return notificationType;
+	public String getPassWord() {
+		return passWord;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	
 	public void setCompanyAddress(String companyAddress) {
 		this.companyAddress = companyAddress;
-	}
-
-	public void setCompanyContactNumber(int companyContactNumber) {
-		this.companyContactNumber = companyContactNumber;
 	}
 
 	public void setCompanyEmail(String companyEmail) {
@@ -74,24 +59,26 @@ public class Company extends Base {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 	public void setCompanyRegistrationNumber(String companyRegistrationNumber) {
 		this.companyRegistrationNumber = companyRegistrationNumber;
 	}
-	public void setNotificationType(String notificationType) {
-		this.notificationType = notificationType;
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
-		return "Company [companyAddress=" + companyAddress
-				+ ", companyContactNumber=" + companyContactNumber
-				+ ", companyEmail=" + companyEmail + ", companyName="
-				+ companyName + ", companyRegistrationNumber="
-				+ companyRegistrationNumber + ", notificationType="
-				+ notificationType + "]";
+		return "Company [companyName=" + companyName + ", companyAddress="
+				+ companyAddress + ", companyRegistrationNumber="
+				+ companyRegistrationNumber + ", companyEmail=" + companyEmail
+				+ ", userName=" + userName + ", passWord=" + passWord + "]";
 	}
-
-
-
 
 	
 

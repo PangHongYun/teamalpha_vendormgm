@@ -8,11 +8,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cognizant.dao.AccountDao;
-import com.cognizant.domain.Account;
+import com.cognizant.dao.VendorAppDao;
+import com.cognizant.domain.VendorApp;
 
-@Repository("accountDAO")
-public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements AccountDao{
+@Repository("vendorAppDAO")
+public class VendorAppDaoImpl  extends JpaDAOImpl<Long, VendorApp> implements VendorAppDao{
 	@Autowired
     EntityManagerFactory entityManagerFactory;
 	

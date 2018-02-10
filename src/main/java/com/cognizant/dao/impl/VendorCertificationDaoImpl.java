@@ -8,11 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cognizant.dao.AccountDao;
-import com.cognizant.domain.Account;
+import com.cognizant.dao.VendorCertificationDao;
+import com.cognizant.domain.VendorCertification;
 
-@Repository("accountDAO")
-public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements AccountDao{
+@Repository("vendorCertificationDAO")
+public class VendorCertificationDaoImpl extends JpaDAOImpl<Long, VendorCertification> implements VendorCertificationDao {
+
 	@Autowired
     EntityManagerFactory entityManagerFactory;
 	
@@ -30,8 +31,6 @@ public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements Accoun
         super.setEntityManager(entityManager);
     }
 
-    
-
 	public EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
 	}
@@ -43,8 +42,15 @@ public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements Accoun
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
+
+	@Override
+	public VendorCertification findByCertificateId(Long certificate_Id) {
+		
+		return null;
+	}
+
 	
-	
+
 	
 	
 }
