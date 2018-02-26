@@ -1,0 +1,99 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+	 <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+            <title>Create a new Tender Project</title>
+        </head>
+		 <body>
+		 <h1 align="cente">Create a new Tender Project</h1>
+		  <div class="col-xs-4">
+		  <div class="well">
+           <form id="tenderForm" method="post" action="createTender"  modelAttribute="createTender">
+		   
+ <!-- company name -->			
+		    <div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Company Name: </label>
+                                 <input type="text" class="form-control" id="companyName" name="companyName" value="" required="true" placeholder="company Name"title="Please enter your company name">
+								  <form:input path="company.companyName" name="companyName" id="companyName" cssClass="form-control" required="true"/>
+			</div>		
+			
+			
+			<!-- Tender Project ID ````````````````````````````````````````````````````````````````````````````````` -->			
+		    <div class="form-group">
+                              <div class="form-group">
+                                  <label for="projId" class="control-label">Proj ID: </label>
+                                 <input type="text" class="form-control" id="projId" name="projId" value="" required="true" placeholder="Tender Project ID"title="Please enter a tender project ID">
+								  <form:input path="tender.projID" name="projId" id="projId" cssClass="form-control" required="true"/>
+			</div>	
+			
+			
+			
+			<!-- Tender Project Description -->
+			
+			<div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Tender Project Description: (max. 250 characters)</label>
+                                 <textarea class="form-control" id="description" name="description" value="" required="false" placeholder="Tender Project Description" maxlength="250"title="Please enter tender project details"></textarea>
+								  <form:input path="tender.description" name="description" id="description" cssClass="form-control" required="true"/>
+			</div>
+			
+			
+			<!-- Tender Project In Charge -->			
+		    <div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Tender Person-In-Charge: </label>
+                                 <input type="text" class="form-control" id="projId" name="projId" value="" required="true" placeholder="Tender ID"title="Please enter a tender project Person-In-Charge">
+								  <form:input path="tender.projIC" name="projIC" id="projIC" cssClass="form-control" required="true"/>
+			</div>	
+			
+			
+			
+			<!-- Tender Project Department -->
+			
+			<div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Tender Project Department: </label>
+                                 <input type="text" class="form-control" id="projId" name="projId" value="" required="true" placeholder="Tender Project Department"title="Please enter a project Department">
+								  <form:input path="tender.description" name="description" id="description" cssClass="form-control" required="true"/>
+			</div>
+			
+				<div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Tender Project Expiry Date: </label>
+								  					    <div class="input-group date">
+														<input type="text" class="form-control" id="projExpiry" name="projExpiry" value="" required="true" placeholder="Tender Project Expiry"title="Please enter a valid expiry date ">
+														<div class="input-group-addon">
+														<span class="glyphicon-calendar glyphicon"></span>
+														</div>
+														</div>
+								  <form:input path="tender.description" name="description" id="description" cssClass="form-control" required="true"/>
+			</div>
+			
+			</form>
+			
+			</div>
+			</div>
+        </body>
+	</html>
+	
+	<script>
+	 $(function() {
+  $("#datetimepicker8").datepicker({
+    dateFormat: 'yy-MM-dd'
+  });
+
+	</script>

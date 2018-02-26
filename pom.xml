@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>twenty20</groupId>
-	<artifactId>twenty20</artifactId>
+	<groupId>CompMgmt</groupId>
+	<artifactId>CompMgmt</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>twenty20</name>
@@ -115,6 +115,12 @@
 		  <groupId>com.google.cloud.sql</groupId>
 		  <artifactId>mysql-socket-factory</artifactId>
 		  <version>1.0.2</version>
+		  <exclusions>
+		  	<exclusion>
+		  		<artifactId>jackson-core</artifactId>
+		  		<groupId>com.fasterxml.jackson.core</groupId>
+		  	</exclusion>
+		  </exclusions>
 		</dependency>
 		
 		<dependency>
@@ -215,6 +221,12 @@
             <version>${spring.version}</version>
 
         </dependency>
+        
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
 
         <dependency>
 
@@ -346,7 +358,21 @@
 		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
 		    <artifactId>jackson-jaxrs-json-provider</artifactId>
 		    <version>2.3.0</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>jackson-core</artifactId>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.8.0</version>
+</dependency>
+		
 		
 		
         <dependency>

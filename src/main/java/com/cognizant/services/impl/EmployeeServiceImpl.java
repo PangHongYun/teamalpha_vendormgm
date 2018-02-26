@@ -18,6 +18,8 @@ import com.cognizant.common.CompanyMgmtException;
 import com.cognizant.dao.EmployeeDao;
 import com.cognizant.dao.JPADAO;
 import com.cognizant.domain.Employee;
+import com.cognizant.domain.Vendor;
+import com.cognizant.domain.VendorApp;
 import com.cognizant.services.EmployeeService;
 
 @Service("employeeService")
@@ -71,6 +73,21 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Long, Employee> impleme
 			dao.merge(emp);
 	}
 }
+
+	@Override
+	public Employee getUniqueEmployee(String acc_email) {
+		Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("empEmail", acc_email);
+        
+        List<Employee> employees = findByNamedQueryAndNamedParams("Employee.getUniqueEmployee", queryParams);
+        if(employees.size() > 1){
+            throw new CompanyMgmtException("TOO_MANY_EMPLOYEE_BY_SAME_EMAIL");
+        }
+        if(employees.size() == 0){
+            return null;
+        }
+        return employees.get(0);
+	}
 	
 	
 }

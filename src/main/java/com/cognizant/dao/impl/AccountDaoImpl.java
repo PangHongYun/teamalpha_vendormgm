@@ -30,8 +30,6 @@ public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements Accoun
         super.setEntityManager(entityManager);
     }
 
-    
-
 	public EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
 	}
@@ -43,8 +41,6 @@ public class AccountDaoImpl  extends JpaDAOImpl<Long, Account> implements Accoun
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-	
-	
 	
 	
 }

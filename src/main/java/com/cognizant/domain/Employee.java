@@ -9,11 +9,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQueries({ 
-	
-	@NamedQuery(name="Employee.findByEmployeeIdNo", 
-		query="SELECT e FROM Employee e WHERE e.employeeIdNo=:employeeIdNo")})
-public class Employee extends Company {
+@NamedQueries({ 	
+	@NamedQuery(name="Employee.findByEmployeeIdNo", query="SELECT e FROM Employee e WHERE e.employeeIdNo=:employeeIdNo"),
+	@NamedQuery(name ="Employee.getUniqueEmployee", query="SELECT e FROM Employee e WHERE e.employeeEmail=:empEmail")
+	})
+public class Employee extends Base {
 
 	/**
 	 * 

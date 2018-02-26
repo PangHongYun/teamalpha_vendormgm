@@ -1,8 +1,14 @@
 package com.cognizant.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "Vendor.getUniqueVendor", query = "SELECT v FROM Vendor v WHERE v.vendorEmail=:vendorEmail"),
+	@NamedQuery(name = "Vendor.getAllApplications", query="SELECT v FROM VendorApp v WHERE v.vendorId=:vendorId")
+})
 public class Vendor extends Base{
 	
 	
