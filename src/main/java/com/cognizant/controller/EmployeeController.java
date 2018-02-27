@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cognizant.domain.Account;
+import com.cognizant.domain.Company;
+import com.cognizant.domain.Department;
 import com.cognizant.domain.Employee;
+import com.cognizant.services.CompanyService;
+import com.cognizant.services.DepartmentService;
 import com.cognizant.services.EmployeeService;
 
 @Controller
@@ -20,6 +25,10 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	@Autowired
+	CompanyService companyService;
+	@Autowired
+	DepartmentService departmentService;
 
 	@RequestMapping(value = "/employeeView", method = RequestMethod.GET)
 	public ModelAndView showEmployee(HttpServletRequest request,
@@ -32,9 +41,48 @@ public class EmployeeController {
 	@RequestMapping(value = "/employeeRegistration", method = RequestMethod.GET)
 	public ModelAndView createEmployee(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("employeeCreation");
+		ModelAndView mav = new ModelAndView("employeeRegistration");
+		request.getParameter("acc_email");
+		String email=request.getSession().getAttribute("account").toString();
 		Employee e= new Employee();
-		mav.addObject("employeeCreation", e);
+		e.setEmployeeEmail(email);
+		mav.addObject("employeeRegistration", e);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/empRegistrationProcess", method = RequestMethod.POST)
+	public ModelAndView registrationProcess(HttpServletRequest request,
+			HttpServletResponse response, @ModelAttribute("employeeRegistration") Employee e_registration) {
+		ModelAndView mav = null;
+		Employee e = employeeService.getUniqueEmployee(e_registration.getEmployeeEmail());
+		if (e!=null) {
+			String url = "error";
+			mav = new ModelAndView(url);
+			mav.addObject("message", "Email already in use!");
+		} else {
+			employeeService.saveOrUpdate(e_registration);
+			String c_name=e_registration.getCompany_name();
+			Company c=companyService.getUniqueCompanyByName(c_name);
+			if(c==null){
+				String url = "companyRegistration";
+				mav = new ModelAndView(url);	
+				return mav;
+			}
+			else{
+				String dept=e.getEmployeeDepartment();
+				Department department=departmentService.findbyDepartmentNameAndComId(dept, c.getId());
+				if(department==null){
+					String url = "deptRegistration";
+					mav = new ModelAndView(url);	
+					return mav;
+				}
+				else{
+					String url = "employeeView";
+					mav = new ModelAndView(url);	
+					return mav;
+				}
+			}
+		}
 		return mav;
 	}
 
@@ -42,9 +90,12 @@ public class EmployeeController {
 	public ModelAndView viewAllApplied(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
+//		Department dept=e.getEmployeeDepartment();
+//		List<Vendor> appList = getVendorApp(dept.getId());
+//		mav.addObject("VendorsApplied", appList);
 		return mav;
 	}
-	@RequestMapping(value = "/submitEmployeeTender", method = RequestMethod.POST)
+	@RequestMapping(value = "/createEmployeeTender", method = RequestMethod.POST)
 	public ModelAndView submitEmpTender(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
@@ -68,13 +119,7 @@ public class EmployeeController {
 		ModelAndView mav = null;
 		return mav;
 	}
-	@RequestMapping(value = "/employeeRegistration", method = RequestMethod.POST)
-	public ModelAndView editEmployee(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
-		ModelAndView mav = null;
-		return mav;
-	}
-	@RequestMapping(value = "/companyCreation", method = RequestMethod.POST)
+	@RequestMapping(value = "/companyRegistration", method = RequestMethod.POST)
 	public ModelAndView createCompany(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;

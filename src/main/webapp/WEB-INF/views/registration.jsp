@@ -49,6 +49,7 @@
 		  		var password2 = $('#password2').val();
 				if(password1!= password2) {
 					alert("password confirmations dont match, please re-enter a new password");
+					password1.focus();
 				}
 				else{
 					document.getElementById("regForm").submit();
@@ -90,8 +91,7 @@
 						<!-- account password-->
 						<div class="form-group">
 							<label for="password" class="control-label">Password</label>
-							<form:password 
-								cssClass="form-control" id="password1" name="password1" value=""
+							<input type="password" class="form-control" id="password1" name="password1" value=""
 								required="true" placeholder="Password"
 								title="Please enter your password" />
 							<span class="help-block"></span>
@@ -109,7 +109,7 @@
 						</div>
 
 						<span class="spinner"><i class="icon-spin icon-refresh"></i></span>
-						<button type="submit" class="btn btn-success btn-block"
+						<button type="button" class="btn btn-success btn-block"
 							onclick="validateChangePassword()">Create a new Account</button>
 
 						<!--Cancel button -->

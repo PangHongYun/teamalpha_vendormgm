@@ -105,6 +105,21 @@ public class CompanyServiceImpl extends BaseServiceImpl<Long, Company>
 		}
 	}
 
+	@Override
+	public Company getUniqueCompanyByName(String companyName) {
+		Map<String, String> queryParams = new HashMap<String, String>();
+		queryParams.put("companyName", companyName);
+		
+		List<Company> com = findByNamedQueryAndNamedParams("Company.getUniqueCompanyByName", queryParams);
+		if(com.size() > 1){
+	         throw new CompanyMgmtException("TOO_MANY_COMPANIES_BY_SAME_NAME");
+	     }
+	     if(com.size() == 0){
+	         return null;
+	     }
+	     return com.get(0);
+	}
+
 
 
 

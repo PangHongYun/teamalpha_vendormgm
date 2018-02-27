@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cognizant.domain.Account;
+import com.cognizant.domain.Employee;
 import com.cognizant.services.AccountService;
 
 @Controller
@@ -48,7 +49,10 @@ public class RegistrationController {
 			}
 			else if(type==2){
 				String url = "employeeRegistration";
-				mav = new ModelAndView(url);	
+				mav = new ModelAndView(url);
+				Employee e=new Employee();
+				e.setEmployeeEmail(registration.getAcc_email());
+				mav.addObject("employee",e);
 				return mav;
 			}
 		}

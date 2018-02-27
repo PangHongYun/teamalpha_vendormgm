@@ -20,21 +20,12 @@ public class TestEmployeeService {
 
 	@Autowired
 	EmployeeService empService;
-	
-	@Test
-	@Rollback(value = false)
-	public void testFindEmployeeByIdNo(){
-		Employee emp = empService.findByEmployeeIdNo("123");
-		System.out.println(emp);
-		assertNotNull(emp);
-	}
-	
+		
 	@Test 
 	@Rollback(value = false)
 	public void testCreateEmp(){
 		Employee employee = new Employee();
 		employee.setAccountId(1);
-		employee.setEmployeeIdNo("123");
 		employee.setEmployeeName("TIM");
 		employee.setEmployeeEmail("TIM@cognizant.com");
 		empService.createEmployee(employee);

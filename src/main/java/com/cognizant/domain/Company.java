@@ -8,7 +8,9 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "Company.getUniqueCompany", 
-		query = "SELECT c FROM Company c WHERE c.companyName=:companyName AND c.companyRegistrationNumber=:companyRegistrationNumber"),
+			query = "SELECT c FROM Company c WHERE c.companyName=:companyName AND c.companyRegistrationNumber=:companyRegistrationNumber"),
+	@NamedQuery(name = "Company.getUniqueCompanyByName", 
+			query = "SELECT c FROM Company c WHERE c.companyName=:companyName"),
 	@NamedQuery(name="Company.findByRegistrationNumber", 
 		query="SELECT c FROM Company c WHERE c.companyRegistrationNumber=:companyRegistrationNumber")})
 public class Company extends Base {

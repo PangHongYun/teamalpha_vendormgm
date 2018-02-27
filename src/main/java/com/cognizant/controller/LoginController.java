@@ -24,7 +24,11 @@ public class LoginController {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
 	VendorService vendorService;
+	
+	@Autowired
 	EmployeeService employeeService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -45,19 +49,40 @@ public class LoginController {
 						account.getAcc_password())) {
 			int type=account.getAcc_type();
 			if(type==1){
-				String url = "vendorView";
-				mav = new ModelAndView(url);			
 				Vendor v=vendorService.getUniqueVendor(account.getAcc_email());
-				//mav.addObject("vendor", v);	
-				request.getSession().setAttribute("vendor", v);
+				if(v==null){
+					String url = "vendorRegistration";
+					mav = new ModelAndView(url);	
+					request.getSession().setAttribute("account", account.getAcc_email());		
+					return mav;
+				}
+				else{
+					String url = "vendorView";
+					mav = new ModelAndView(url);			
+					//mav.addObject("vendor", v);	
+					request.getSession().setAttribute("vendor", v);
+					return mav;
+				}
+				
 			}
 			else if(type==2){
-				String url = "employeeView";
-				mav = new ModelAndView(url);
-				Employee e=employeeService.getUniqueEmployee(account.getAcc_email());
+				Employee e=employeeService.getUniqueEmployee(account.getAcc_email());				
+				if(e==null){
+					String url = "employeeRegistration";
+					mav = new ModelAndView(url);
+					e=new Employee();
+					e.setEmployeeEmail(account.getAcc_email());
+					mav.addObject("employee",e);
+					return mav;
+				}
+				else{
+					String url = "employeeView";
+					mav = new ModelAndView(url);
 				mav.addObject("firstname", account.getAcc_email());	
 				//mav.addObject("employee", e);	
 				request.getSession().setAttribute("employee", e);
+				return mav;
+				}
 			}
 			else{
 				String url = "main";

@@ -61,7 +61,7 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Long, Employee> impleme
 	@Override
 	public void createEmployee(Employee employee) {
 		
-		Employee emp = findByEmployeeIdNo(employee.getEmployeeIdNo());
+		Employee emp = getUniqueEmployee(employee.getEmployeeEmail());
 		
 		if(emp == null){
 			dao.persist(employee);

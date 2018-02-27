@@ -9,8 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQueries({ 	
-	@NamedQuery(name="Employee.findByEmployeeIdNo", query="SELECT e FROM Employee e WHERE e.employeeIdNo=:employeeIdNo"),
+@NamedQueries({ 
 	@NamedQuery(name ="Employee.getUniqueEmployee", query="SELECT e FROM Employee e WHERE e.employeeEmail=:empEmail")
 	})
 public class Employee extends Base {
@@ -27,23 +26,18 @@ public class Employee extends Base {
  
 	private int accountId;
 	
-	private int companyId;
+	private String company_name;
 
 	private String employeeDepartment;
 
 	private String employeeEmail;
+		
+	private String employeeName;	
 	
-	@Unique
-	private String employeeIdNo;
-	
-	private String employeeName;
+	private int employeeContactNumber;
 
 	public int getAccountId() {
 		return accountId;
-	}
-
-	public int getCompanyId() {
-		return companyId;
 	}
 
 	public String getEmployeeDepartment() {
@@ -54,10 +48,6 @@ public class Employee extends Base {
 		return employeeEmail;
 	}
 
-	public String getEmployeeIdNo() {
-		return employeeIdNo;
-	}
-
 	public String getEmployeeName() {
 		return employeeName;
 	}
@@ -66,9 +56,6 @@ public class Employee extends Base {
 		this.accountId = accountId;
 	}
 
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
 
 	public void setEmployeeDepartment(String employeeDepartment) {
 		this.employeeDepartment = employeeDepartment;
@@ -78,12 +65,24 @@ public class Employee extends Base {
 		this.employeeEmail = employeeEmail;
 	}
 
-	public void setEmployeeIdNo(String employeeIdNo) {
-		this.employeeIdNo = employeeIdNo;
-	}
-
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
+	}
+
+	public String getCompany_name() {
+		return company_name;
+	}
+
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+
+	public int getEmployeeContactNumber() {
+		return employeeContactNumber;
+	}
+
+	public void setEmployeeContactNumber(int employeeContactNumber) {
+		this.employeeContactNumber = employeeContactNumber;
 	}
 	
 	
