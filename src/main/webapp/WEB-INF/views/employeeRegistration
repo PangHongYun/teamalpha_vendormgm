@@ -1,0 +1,105 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Welcome</title>
+    </head>
+    <%@ page import="com.cognizant.domain.Vendor" %>
+    <%
+    Vendor v =(Vendor) session.getAttribute("vendor");
+    
+    %>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		 <body>
+		 <h1 align="center">Create a new Employee</h1>
+		  <div class="col-xs-4" >
+		  <div class="well">
+           <form id="createEmp" method="post" action="createEmp"  modelAttribute="createEmp">
+		   
+		    <!-- company name -->			
+		    <div class="form-group">
+                              <div class="form-group">
+                                  <label for="companyName" class="control-label">Company Name </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="companyName" name="companyName" value="" required="true" placeholder="company Name"title="Please enter your company name">
+								  <form:input path="company.companyName" name="companyName" id="companyName" cssClass="form-control" required="true"/>
+			</div>		
+			
+			
+			<!-- Employee ID ````````````````````````````````````````````````````````````````````````````````` -->			
+		    <div class="form-group">
+                              <div class="form-group">
+                                  <label for="projId" class="control-label">ID </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="empID" name="empID" value="" required="true" placeholder="Employee ID"title="Please enter a tender project ID">
+								  <form:input path="employee.empID" name="empID" id="empID" cssClass="form-control" required="true"/>
+								  <form:errors path="empID" cssClass="error">
+			</div>	
+			
+			
+			
+			<!-- Employee Name -->
+			
+			<div class="form-group">
+                              <div class="form-group">
+                                  <label for="empName" class="control-label">Name </label><span class="mandatory">*</span>
+                                 <input class="form-control" id="empName" name="empName" value="" required="false" placeholder="Employee Name">
+								  <form:input path="employee.empName" name="empName" id="empName" cssClass="form-control" required="true"/>
+								    <form:errors path="empName" cssClass="error">
+			</div>
+			
+				
+			<!-- Employee Email -->
+			
+			<div class="form-group">
+                              <div class="form-group">
+                                  <label for="empName" class="control-label">Email </label><span class="mandatory">*</span>
+                                 <input class="form-control" id="empName" name="empName" value="" required="false" placeholder="emp@google.com">
+								  <form:input path="employee.empEmail" name="empEmail" id="empEmail" cssClass="form-control" required="true"/>
+								    <form:errors path="empEmail" cssClass="error">
+			</div>
+			
+			
+			
+			
+			
+		<!-- employee contact number -->			
+		    <div class="form-group">
+                                  <label for="companyContactNo" class="control-label">Contact Number (Office) </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="empContactNo" name="empContactNo" value="" placeholder="Employee Contact Number"title="P">
+								  <form:input path="employee.empContactNo" name="empContactNo" id="empContactNo" cssClass="form-control" required="true"/>
+								    <form:errors path="empContactNumber" cssClass="error">
+			</div>
+			
+			<!-- employee department -->	
+			
+				<div class="form-group">
+                              
+                                  <label for="companyName" class="control-label">Department </label><span class="mandatory">*</span>
+								  					   <input type="text" class="form-control" id="empDept" name="empDept" value="" placeholder="Employee Department">
+								  <form:input path="employee.empDept" name="empDept" id="empDept" cssClass="form-control" required="true"/>
+								    <form:errors path="empDept" cssClass="error">
+			</div>
+			
+			
+				<!--create new employee button -->
+					 <button type="submit" class="btn btn-success btn-block">Register a New Employee</button>
+					 
+					 
+			<!--Cancel button -->
+					 <button type="cancel" class="btn btn-danger btn-block">Cancel</button>
+					 </div>
+					 </div>
+		   
+		   </form>
+		   
+		   </div></div>		   
+    </body>
+    </html>

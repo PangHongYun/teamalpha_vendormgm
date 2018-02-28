@@ -1,6 +1,8 @@
 package com.cognizant.services.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import com.cognizant.common.CompanyMgmtException;
 import com.cognizant.dao.JPADAO;
 import com.cognizant.dao.VendorDao;
+import com.cognizant.domain.Account;
 import com.cognizant.domain.Vendor;
+import com.cognizant.domain.VendorApp;
 import com.cognizant.services.VendorService;
 
 
@@ -50,6 +54,31 @@ public class VendorServiceImpl extends BaseServiceImpl<Long, Vendor> implements 
 	@Override
 	public List<Vendor> findAll() throws CompanyMgmtException {
 		return dao.findAll();
+	}
+
+	@Override
+	public Vendor getUniqueVendor(String vendorEmail)
+			throws CompanyMgmtException {
+		Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("vendorEmail", vendorEmail);
+        
+        List<Vendor> vendors = findByNamedQueryAndNamedParams("Vendor.getUniqueVendor", queryParams);
+        if(vendors.size() > 1){
+            throw new CompanyMgmtException("TOO_MANY_VENDOR_BY_SAME_EMAIL");
+        }
+        if(vendors.size() == 0){
+            return null;
+        }
+        return vendors.get(0);
+	}
+
+	@Override
+	public List<VendorApp> getApplications(long vendorId) throws CompanyMgmtException {
+		Map<String, Long> queryParams = new HashMap<String, Long>();
+        queryParams.put("vendorId", vendorId);
+        
+        List<VendorApp> appList = findByNamedQueryAndNamedParams("Vendor.getApplications", queryParams);
+		return appList;
 	}
 
 	

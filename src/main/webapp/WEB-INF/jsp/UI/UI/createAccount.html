@@ -1,0 +1,73 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+	 <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+            <title>Create a new Account</title>
+        </head>
+		 <body>
+		 <h1 align="center">Create a new Account</h1>
+		  <div class="col-xs-4" >
+		  <div class="well">
+           <form id="tenderForm" method="post" action="createTender"  modelAttribute="createTender">
+		   
+ <!-- Account Email -->			
+		    <div class="form-group">
+                                  <label for="accEmail" class="control-label">Account Email: </label>
+                                 <input type="text" class="form-control" id="accEmail" name="accEmail" value="" required="true" placeholder="accountEmail"title="Please enter your company name">
+								  <form:input path="account.accEmail" name="accEmail" id="accEmail" cssClass="form-control" required="true"/>
+			</div>	
+
+
+<!-- Account Type -->			
+		    <div class="form-group">
+                                  <label for="accEmail" class="control-label">Account Type: </label>
+                          
+    <select class="form-control btn btn-default dropdown-toggle">
+	<option><a href="#">Company</a></option>
+    <option><a href="#">Vendor</a></option>
+	<option><a href="#">Employee</a></option>
+   </select>
+   
+<form:input path="account.accEmail" name="accEmail" id="accEmail" cssClass="form-control" required="true"/>
+			</div>				
+			
+			<!-- account password-->
+			<div class="form-group">
+                                  <label for="password" class="control-label">Password</label>
+                                 <input type="password" class="form-control" id="password" name="password" value="" required="" placeholder="Account Password"title="Please enter your password">
+                                 <form:password path="account.accPassword" name="password" id="password" />
+                                  <span class="help-block"></span>
+                              </div>
+							  
+							  
+				<!-- re-confirm password -->
+			 <div class="form-group">
+                                  <label for="confirmPassword" class="control-label">Re-Confirm Password:</label>
+                                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="" required="true" placeholder="Re-Enter Account Password"title="Please re-enter your password for validation">
+                                 <form:password path="account.accPassword" name="accPassword" id="accPassword" />
+                                  <span class="help-block"></span>
+                              </div>
+							  
+							      <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+							  <button type="submit" class="btn btn-success btn-block">Create a new Account</button>
+							  			 
+			<!--Cancel button -->
+					 <button type="cancel" class="btn btn-danger btn-block">Cancel</button>
+					 
+					 
+					 </form>
+			</div>
+			</div>
+        </body>
+	</html>
+			

@@ -26,10 +26,10 @@ public class CompanyDaoImpl extends JpaDAOImpl<Long, Company> implements Company
         super.setEntityManager(entityManager);        
     }
     
-    public Company findByCompanyRegistrationNumber(String companyRegistrationNumber) {
-		// return getJpaTemplate().find(entityClass, id);
-		return getEntityManager().find(entityClass, companyRegistrationNumber);
-	}   
+//    public Company findByCompanyRegistrationNumber(String companyRegistrationNumber) {
+//		// return getJpaTemplate().find(entityClass, id);
+//		return getEntityManager().find(entityClass, companyRegistrationNumber);
+//	}   
     
 	public void setEntityManager(EntityManager em) {
 		this.entityManager = em;

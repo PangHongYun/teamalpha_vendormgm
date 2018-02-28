@@ -1,0 +1,448 @@
+
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+            <title>List of Employees</title>
+       
+		 <body>
+<!--Navbar-->
+<div class = "title-header">
+          <h1 align="cente">Employee Page View</h1>
+	</div>
+	<!--end of top header title-->
+
+ <div class="navbar-header" width="auto">
+ 
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+     
+	  <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+	  
+	  
+	  <!---admin dropdown--->
+	  <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle">Admin<span class="caret"></span></a>
+									<ul class=" dropdown-menu">
+										<li><a href="#">Create New Employee </a></li>
+										
+										<li><a href="#">Register New Vendor</a></li><!--link to vendorRegister.jsp-->	
+										<li><a href="#">Register New Company</a></li><!--link to companyRegister.jsp-->
+										<li><a href="#">List of Vendors</a></li>
+		</li>
+      
+	
+    </ul>
+	  
+	     <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle">Tenders<span class="caret"></span></a>
+									<ul class=" dropdown-menu">
+										<li><a href="#">Create New Tender Project</a></li><!--link to createTender.jsp-->	
+										<li><a href="#">View all Tenders Project</a></li>
+										<li><a href="#">Edit Tender Project Details</a></li>
+		</li>
+      
+	
+    </ul>
+	
+	
+	 <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle">Vendors<span class="caret"></span></a>
+									<ul class=" dropdown-menu">
+										<li><a href="#">Create New Vendor Application</a></li>
+										<li><a href="#">View Vendor Application</a></li>
+			
+	</ul>
+	<ul>
+	</div>
+	 <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>	
+	</ul>
+	
+	</li>
+	
+	 <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong>User</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                                    
+                                       
+                                            <button class="btn btn-danger">Logout</button>
+										   <button type="button" class="btn btn-info btn-medium" data-toggle="modal" data-target="#myModal">Change Password</button>
+                                   
+                          
+							</li>
+		</ul>
+		
+		</div>
+	 </nav>
+	 
+	 
+	 //view all company list
+	 //data tables stored here---
+	 //search bar fieldset
+	 
+	 <div class="container">
+    <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+		    <div class="input-group">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    	<span id="search_concept">Filter by</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#contains">Registration Number</a></li>
+                      <li><a href="#its_equal">Name</a></li>
+                      <li><a href="#greather_than"> Address</a></li>
+                      <li><a href="#less_than">Email </a></li>
+                      <li class="divider"></li>
+					   <li><a href="#all">Contact Number</a></li>
+					   <li><a href="#all">Fax Number</a></li>
+                      <li><a href="#all">Notice Preferences</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" name="search_param" value="all" id="search_param">         
+                <input type="text" class="form-control" name="x" placeholder="Search term...">
+                <span class="input-group-btn">
+				<button class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    <button class="btn btn-default" type="button" onclick="search()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+	</div>
+</div>
+	 <!--start of data table--->
+	 <div class="tableContent">
+	 
+	<table id="list">
+	<thead>
+ <tr>
+ <td colspan="3"><h1>Employees</h1></td>
+ </tr>
+  </thead>
+  <tbody class="searchable">
+ <tr>
+ <td>Employee ID </td>
+ <td>Employee Name</td>
+ <td>Department</td>
+ <td>Email Address</td>
+ <td>Contact (Office)</td>
+ <td>Fax</td>
+ <td>Actions</td>
+ </tr>
+ <c:forEach items="${emps}" var="emps">
+ <tr>
+ <td>${emps.empID} test</td>
+ <td>${emps.empName}test</td>
+ <td>${emps.empDept}test</td>
+ <td>${emps.empEmail}</td>
+ <td>${emps.companyContactNumber}</td>
+ <td>${emps.empContactNo}</td>
+ <td>${emps.empFax}</td>
+ <td>
+  <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+  <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+</td>
+ </tr>
+ </tbody><!--end of table body for search--->
+ 
+ </c:forEach>
+ </table>
+	 </div><!---end data table--->
+	 
+	 <!--- pagination table--->
+	<div class="container">
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Employee Name</th>
+              <th>Department</th>
+              <th>Email Address</th>
+              <th>Contact (Office)</th>
+              <th>Fax</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="empList">
+            <tr>
+              <td>1</td>
+              <td>n1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr class="success">
+              <td>5</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+             <tr>
+              <td>8</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </table>   
+      </div>
+      <div class="col-md-12 text-center">
+      <ul class="pagination pagination-lg pager" id="myPager"></ul>
+      </div>
+
+	  
+
+	
+	
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+	
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change Password</h4>
+        </div>
+        <div class="modal-body">
+          <!--- content of modal here--->
+      
+            <label>Old Password<span class="mandatory">*</span></label>
+			<input type="text" class="form-control" id="oldPassword" name="oldPassword" value="" required="true" placeholder="Old Password">
+			 <label>New Password<span class="mandatory">*</span></label>
+			<input type="text" class="form-control" id="oldPassword" name="oldPassword" value="" required="true" placeholder="Old Password">
+			 <label>Confirm new Password<span class="mandatory">*</span></label>
+			<input type="text" class="form-control" id="oldPassword" name="oldPassword" value="" required="true" placeholder="Old Password">
+			
+			
+        </div>
+        <div class="modal-footer">
+		<button type="submit" class="btn btn-success btn-block" onclick="changePassword()">Change Paasword</button>
+		<!--Cancel button -->
+					 <button type="cancel" class="btn btn-danger btn-block">Cancel</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ 
+  
+  <script>
+  <!--filter bar-->
+  
+  $(document).ready(function(e){
+    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+		e.preventDefault();
+		var param = $(this).attr("href").replace("#","");
+		var concept = $(this).text();
+		$('.search-panel span#search_concept').text(concept);
+		$('.input-group #search_param').val(param);
+	});
+});
+
+<!--bootstrap pagination-->
+
+     $.fn.pageMe = function(opts){
+    var $this = this,
+        defaults = {
+            perPage: 7,
+            showPrevNext: false,
+            hidePageNumbers: false
+        },
+        settings = $.extend(defaults, opts);
+    
+    var listElement = $this;
+    var perPage = settings.perPage; 
+    var children = listElement.children();
+    var pager = $('.pager');
+    
+    if (typeof settings.childSelector!="undefined") {
+        children = listElement.find(settings.childSelector);
+    }
+    
+    if (typeof settings.pagerSelector!="undefined") {
+        pager = $(settings.pagerSelector);
+    }
+    
+    var numItems = children.size();
+    var numPages = Math.ceil(numItems/perPage);
+
+    pager.data("curr",0);
+    
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+    }
+    
+    var curr = 0;
+    while(numPages > curr && (settings.hidePageNumbers==false)){
+        $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+        curr++;
+    }
+    
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+    }
+    
+    pager.find('.page_link:first').addClass('active');
+    pager.find('.prev_link').hide();
+    if (numPages<=1) {
+        pager.find('.next_link').hide();
+    }
+      pager.children().eq(1).addClass("active");
+    
+    children.hide();
+    children.slice(0, perPage).show();
+    
+    pager.find('li .page_link').click(function(){
+        var clickedPage = $(this).html().valueOf()-1;
+        goTo(clickedPage,perPage);
+        return false;
+    });
+    pager.find('li .prev_link').click(function(){
+        previous();
+        return false;
+    });
+    pager.find('li .next_link').click(function(){
+        next();
+        return false;
+    });
+    
+    function previous(){
+        var goToPage = parseInt(pager.data("curr")) - 1;
+        goTo(goToPage);
+    }
+     
+    function next(){
+        goToPage = parseInt(pager.data("curr")) + 1;
+        goTo(goToPage);
+    }
+    
+    function goTo(page){
+        var startAt = page * perPage,
+            endOn = startAt + perPage;
+        
+        children.css('display','none').slice(startAt, endOn).show();
+        
+        if (page>=1) {
+            pager.find('.prev_link').show();
+        }
+        else {
+            pager.find('.prev_link').hide();
+        }
+        
+        if (page<(numPages-1)) {
+            pager.find('.next_link').show();
+        }
+        else {
+            pager.find('.next_link').hide();
+        }
+        
+        pager.data("curr",page);
+      	pager.children().removeClass("active");
+        pager.children().eq(page+1).addClass("active");
+    
+    }
+};
+
+$(document).ready(function(){
+    
+  $('#empList').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:4});
+    
+});
+  </script>

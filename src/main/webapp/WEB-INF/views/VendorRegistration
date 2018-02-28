@@ -1,0 +1,136 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Welcome</title>
+    </head>
+    <%@ page import="com.cognizant.domain.Vendor" %>
+    <%
+    Vendor v =(Vendor) session.getAttribute("vendor");
+    
+    %>
+            
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
+		 <body>
+		 <h1 align="center">Vendor Registration Page</h1>
+		 <div class="col-xs-4">
+		  <div class="well">
+           <form id="vendorRegisterForm" method="post" action="vendorRegister"  modelAttribute="vendorRegister">
+		   <!-- vendor reg no -->
+		    
+                              <div class="form-group">
+                                  <label for="vendorRegistrationNumber" class="control-label">Vendor Registration Number </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="vendorRegNo" name="vendorRegNo" value="" required="true" placeholder="Vendor Reg. No"title="Please enter a valid registration number">
+								  <form:input path="vendor.vendorRegistrationNumber" name="vendorRegistrationNumber" id="vendorRegistrationNumber" cssClass="form-control" required="true"/>
+			</div>
+ <!-- vendor name -->			
+		 
+                              <div class="form-group">
+                                  <label for="vendorName" class="control-label">Vendor Name</label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="vendorName" name="vendorName" value="" required="true" placeholder="Vendor Name"title="Please enter your vendor name">
+								  <form:input path="vendor.vendorName" name="vendorName" id="vendorName" cssClass="form-control" required="true"/>
+			</div>		
+			
+			
+			<!-- vendor location Address -->			
+		
+                              <div class="form-group">
+                                  <label for="vendorName" class="control-label">Vendor Location Address</label>
+                                 <input type="text" class="form-control" id="vendorAddress" name="vendorAddress" value="" required="true" placeholder="Vendor Location Address"title="Please enter your vendor location address">
+								  <form:input path="vendor.vendorAddress" name="vendorAddress" id="vendorAddress" cssClass="form-control"/>
+			</div>	
+			
+			
+			
+			<!-- vendor email -->			
+		    
+                              <div class="form-group">
+                                  <label for="vendorEmail" class="control-label">Vendor Email Address</label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="vendorEmail" name="vendorEmail" value="" required="true" placeholder="Vendor Email"title="P">
+								  <form:input path="vendor.vendorEmail" name="vendorEmail" id="vendorEmail" cssClass="form-control" required="true"/>
+			</div>
+			<!--error popup for invalid email address -->
+			<div id="invalidEmailErrorMsg" class="alert alert-error hide">Invalid Email address entered</div>			
+
+			
+			<!--notiification preference dropdown list--->
+			
+			 <div class="form-group">
+                                   <label for="vendorNotification" class="control-label">Vendor Notification Preference</label><span class="mandatory">*</span>
+								<label class="radio-inline"><input type="radio" name="optradio">Email</label>
+<label class="radio-inline"><input type="radio" name="optradio">SMS</label>
+								  <form:input path="vendor.noticePreference" name="noticePreference" id="noticePreference" cssClass="form-control" required="true"/>
+			
+			</div>
+			
+			<!-- vendor contact number -->			
+		    <div class="form-group">
+                              
+                                  <label for="vendorContactNo" class="control-label">Vendor Contact Number (Office) </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="vendorContactNo" name="vendorContactNo" value="" required="true" placeholder="Vendor Contact Number"title="P">
+								  <form:input path="vendor.vendorContactNo" name="vendorContactNo" id="vendorContactNo" cssClass="form-control" required="true"/>
+			</div>
+			<!--error popup for invalid email address -->
+			<div id="invalidContactNoErrorMsg" class="alert alert-error hide">Invalid contact number entered, must be a 8-digit number</div>		
+			
+			
+			<!-- vendor fax number -->			
+		    <div class="form-group">
+                           
+                                  <label for="vendorFax" class="control-label">Vendor Fax Number (Office) </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="vendorFax" name="vendorFax" value="" required="false" placeholder="Vendor Fax Number"title="">
+								  <form:input path="vendor.vendorFax" name="vendorFax" id="vendorFax" cssClass="form-control" required="false"/>
+			</div>
+			<!--error popup for invalid fax Number-->
+			<div id="invalidFaxNoErrorMsg" class="alert alert-error hide">Invalid fax number entered</div>	
+			
+			
+			<!-- vendor username -->
+			<div class="form-group">
+                
+                                  <label for="username" class="control-label">Username: </label><span class="mandatory">*</span>
+                                 <input type="text" class="form-control" id="username" name="username" value="" required="true" placeholder="Username"title="Please enter your username">
+								  <form:input path="vendor.username" name="vendorUsername" id="vendorUsername" cssClass="form-control" required="true"/>
+			</div>
+			
+			<!-- vendor password -->
+			 <div class="form-group">
+                                  <label for="password" class="control-label">Password:</label><span class="mandatory">*</span>
+                                 <input type="password" class="form-control" id="password" name="password" value="" required="true" placeholder="Password"title="Please enter your password">
+                                 <form:password path="vendor.password" name="vendorPassword" id="vendorPassword" />
+                                  <span class="help-block"></span>
+                              </div>
+							  
+							  
+							  
+				<!-- vendor re-confirm password -->
+			 <div class="form-group">
+                                  <label for="confirmPassword" class="control-label">Re-Confirm Password:</label><span class="mandatory">*</span>
+                                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="" required="true" placeholder ="re-enter password" title="Please re-enter your password for validation">
+                                 <form:password path="vendor.password" name="vendorPassword" id="vendorPassword" />
+                                  <span class="help-block"></span>
+                              </div>
+			
+			<!--register button -->
+					 <button type="submit" class="btn btn-success btn-block">Register a New Vendor</button>
+					 
+					 
+			<!--Cancel button -->
+					 <button type="cancel" class="btn btn-danger btn-block">Cancel</button>
+					 
+			</form>
+			</div>
+			</div>
+	
+    </body>
+    </html>
