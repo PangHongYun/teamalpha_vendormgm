@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 		query="SELECT c FROM Company c WHERE c.companyRegistrationNumber=:companyRegistrationNumber")})
 public class Company extends Base {
 
+	private static final long serialVersionUID = 3722253645527405733L;
 	private String companyAddress;
 	private String companyEmail;
 	private int companyContactNumber;
@@ -22,8 +23,6 @@ public class Company extends Base {
 	
 	@Unique
 	private String companyRegistrationNumber;
-	private String passWord;
-	private String userName;
 	
 	public String getCompanyAddress() {
 		return companyAddress;
@@ -40,15 +39,6 @@ public class Company extends Base {
 	public String getCompanyRegistrationNumber() {
 		return companyRegistrationNumber;
 	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
 	
 	public void setCompanyAddress(String companyAddress) {
 		this.companyAddress = companyAddress;
@@ -66,22 +56,11 @@ public class Company extends Base {
 		this.companyRegistrationNumber = companyRegistrationNumber;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public int getCompanyContactNumber() {
+		return companyContactNumber;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCompanyContactNumber(int companyContactNumber) {
+		this.companyContactNumber = companyContactNumber;
 	}
-
-	@Override
-	public String toString() {
-		return "Company [companyName=" + companyName + ", companyAddress="
-				+ companyAddress + ", companyRegistrationNumber="
-				+ companyRegistrationNumber + ", companyEmail=" + companyEmail
-				+ ", userName=" + userName + ", passWord=" + passWord + "]";
-	}
-
-	
-
 }

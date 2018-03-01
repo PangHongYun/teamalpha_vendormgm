@@ -1,5 +1,8 @@
 package com.cognizant.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,146 +17,159 @@ import com.cognizant.domain.Account;
 import com.cognizant.domain.Company;
 import com.cognizant.domain.Department;
 import com.cognizant.domain.Employee;
+import com.cognizant.domain.Tender;
+import com.cognizant.domain.Vendor;
+import com.cognizant.domain.VendorApp;
 import com.cognizant.services.CompanyService;
 import com.cognizant.services.DepartmentService;
 import com.cognizant.services.EmployeeService;
+import com.cognizant.services.TenderService;
+import com.cognizant.services.VendorAppService;
+import com.cognizant.services.VendorService;
 
 @Controller
 public class EmployeeController {
 
 	private final String prefixURL = "views";
-	
+
 	@Autowired
 	EmployeeService employeeService;
 	@Autowired
 	CompanyService companyService;
 	@Autowired
 	DepartmentService departmentService;
+	@Autowired
+	TenderService tenderService;
+	@Autowired
+	VendorAppService vendorAppService;
+	@Autowired
+	VendorService vendorService;
 
-	@RequestMapping(value = "/employeeView", method = RequestMethod.GET)
-	public ModelAndView showEmployee(HttpServletRequest request,
-			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("employeeView");
-		Employee e = (Employee) request.getSession().getAttribute("employee");
-		mav.addObject("employeeView", e);
-		return mav;
-	}
-	@RequestMapping(value = "/employeeRegistration", method = RequestMethod.GET)
-	public ModelAndView createEmployee(HttpServletRequest request,
-			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("employeeRegistration");
-		request.getParameter("acc_email");
-		String email=request.getSession().getAttribute("account").toString();
-		Employee e= new Employee();
-		e.setEmployeeEmail(email);
-		mav.addObject("employeeRegistration", e);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/empRegistrationProcess", method = RequestMethod.POST)
+	@RequestMapping(value = "/empRegProcess", method = RequestMethod.POST)
 	public ModelAndView registrationProcess(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeRegistration") Employee e_registration) {
+			HttpServletResponse response,
+			@ModelAttribute("employee") Employee e_registration) {
 		ModelAndView mav = null;
-		Employee e = employeeService.getUniqueEmployee(e_registration.getEmployeeEmail());
-		if (e!=null) {
-			String url = "error";
+		employeeService.saveOrUpdate(e_registration);
+		String c_name = e_registration.getCompany_name();
+		Company c = companyService.getUniqueCompanyByName(c_name);
+		if (c == null) {
+			String url = "companyRegistration";
 			mav = new ModelAndView(url);
-			mav.addObject("message", "Email already in use!");
+			c = new Company();
+			c.setCompanyName(c_name);
+			mav.addObject("company", c);
+			request.getSession().setAttribute("employee", e_registration);
+			return mav;
 		} else {
-			employeeService.saveOrUpdate(e_registration);
-			String c_name=e_registration.getCompany_name();
-			Company c=companyService.getUniqueCompanyByName(c_name);
-			if(c==null){
-				String url = "companyRegistration";
-				mav = new ModelAndView(url);	
-				return mav;
+			String dept = e_registration.getEmployeeDepartment();
+			Department department = departmentService
+					.findbyDepartmentNameAndComId(dept, c.getId());
+			if (department == null) {
+				department = new Department();
+				department.setCom_id(c.getId());
+				department.setDept_name(dept);
+				departmentService.saveOrUpdate(department);
 			}
-			else{
-				String dept=e.getEmployeeDepartment();
-				Department department=departmentService.findbyDepartmentNameAndComId(dept, c.getId());
-				if(department==null){
-					String url = "deptRegistration";
-					mav = new ModelAndView(url);	
-					return mav;
-				}
-				else{
-					String url = "employeeView";
-					mav = new ModelAndView(url);	
-					return mav;
+			String url = "employeeView";
+			mav = new ModelAndView(url);
+			Company company = companyService
+					.getUniqueCompanyByName(e_registration.getCompany_name());
+			Department dpmt = departmentService.findbyDepartmentNameAndComId(
+					e_registration.getEmployeeDepartment(), company.getId());
+			List<Tender> tenders = tenderService.findbyDeptId(dpmt.getId());
+			int tenderSize = tenders.size();
+			List<VendorApp> applications = new ArrayList<VendorApp>();
+			for (int i = 0; i < tenderSize; i++) {
+				List<VendorApp> venAppl = vendorAppService.findbyProjId(Long
+						.toString(tenders.get(i).getId()));
+				int venApplSize = venAppl.size();
+				for (int j = 0; j < venApplSize; j++) {
+					applications.add(venAppl.get(j));
 				}
 			}
+			int size = applications.size();
+			for (int i = 0; i < size; i++) {
+				Long v_id = Long.parseLong(applications.get(i).getVendorId());
+				Vendor v = vendorService.getUniqueVendorById(v_id);
+				applications.get(i).setVendorId(v.getVendorName());
+				Long proj_id = Long.parseLong(applications.get(i).getProjId());
+				Tender proj = tenderService.findProjectID(proj_id);
+				applications.get(i).setProjId(proj.getProject_Name());
+			}
+			request.getSession().setAttribute("applications", applications);
+			request.getSession().setAttribute("employee", e_registration);
+			return mav;
+
 		}
+	}
+
+	@RequestMapping(value = "/empEdit", method = RequestMethod.GET)
+	public ModelAndView editEmp(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView mav = null;
+		String eid = request.getParameter("id");
+		Employee e = employeeService.findByEmployeeIdNo(eid);
+		String url = "employeeRegistration";
+		mav = new ModelAndView(url);
+		mav.addObject("employee", e);
 		return mav;
 	}
 
-	@RequestMapping(value = "/viewAllApplications", method = RequestMethod.POST)
-	public ModelAndView viewAllApplied(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
-		ModelAndView mav = null;
-//		Department dept=e.getEmployeeDepartment();
-//		List<Vendor> appList = getVendorApp(dept.getId());
-//		mav.addObject("VendorsApplied", appList);
-		return mav;
-	}
 	@RequestMapping(value = "/createEmployeeTender", method = RequestMethod.POST)
 	public ModelAndView submitEmpTender(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
+
 	@RequestMapping(value = "/editEmployeeTender", method = RequestMethod.POST)
 	public ModelAndView editEmpTender(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
+
 	@RequestMapping(value = "/deleteEmployeeTender", method = RequestMethod.POST)
 	public ModelAndView deleteEmpTender(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
+
 	@RequestMapping(value = "/changePw", method = RequestMethod.POST)
 	public ModelAndView changePassword(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
-	@RequestMapping(value = "/companyRegistration", method = RequestMethod.POST)
-	public ModelAndView createCompany(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
-		ModelAndView mav = null;
-		return mav;
-	}
-	@RequestMapping(value = "/companyEdit", method = RequestMethod.POST)
-	public ModelAndView editCompany(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
-		ModelAndView mav = null;
-		return mav;
-	}
+
 	@RequestMapping(value = "/companyDelete", method = RequestMethod.POST)
 	public ModelAndView deleteCompany(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
-	@RequestMapping(value = "/departmentCreation", method = RequestMethod.POST)
-	public ModelAndView createDepartment(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
-		ModelAndView mav = null;
-		return mav;
-	}
+
 	@RequestMapping(value = "/departmentEdit", method = RequestMethod.POST)
 	public ModelAndView editDepartment(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
+
 	@RequestMapping(value = "/departmentDelete", method = RequestMethod.POST)
 	public ModelAndView deleteDepartment(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("employeeView") Employee e) {
+			HttpServletResponse response,
+			@ModelAttribute("employeeView") Employee e) {
 		ModelAndView mav = null;
 		return mav;
 	}
-	
+
 }

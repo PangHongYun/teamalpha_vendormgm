@@ -1,31 +1,22 @@
 package com.cognizant.domain;
 
-import javax.jdo.annotations.Unique;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({ 
-	@NamedQuery(name ="Employee.getUniqueEmployee", query="SELECT e FROM Employee e WHERE e.employeeEmail=:empEmail")
+	@NamedQuery(name ="Employee.getUniqueEmployee", query="SELECT e FROM Employee e WHERE e.employeeEmail=:empEmail"),
+	@NamedQuery(name ="Employee.findByEmployeeIdNo", query="SELECT e FROM Employee e WHERE e.id=:employeeIdNo")
 	})
 public class Employee extends Base {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7567100544790163140L;
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
- 
-	private int accountId;
-	
+		
 	private String company_name;
 
 	private String employeeDepartment;
@@ -35,10 +26,6 @@ public class Employee extends Base {
 	private String employeeName;	
 	
 	private int employeeContactNumber;
-
-	public int getAccountId() {
-		return accountId;
-	}
 
 	public String getEmployeeDepartment() {
 		return employeeDepartment;
@@ -51,11 +38,6 @@ public class Employee extends Base {
 	public String getEmployeeName() {
 		return employeeName;
 	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
-
 
 	public void setEmployeeDepartment(String employeeDepartment) {
 		this.employeeDepartment = employeeDepartment;

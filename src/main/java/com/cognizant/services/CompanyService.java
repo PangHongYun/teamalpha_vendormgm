@@ -13,6 +13,7 @@ public interface CompanyService extends BaseService{
 	 public Company getUniqueCompanyByName(String companyName);
 	 
 	 public void deleteByRegistrationNumber(String companyRegistrationNumber) throws CompanyMgmtException;
+
 	 
 	 
 }

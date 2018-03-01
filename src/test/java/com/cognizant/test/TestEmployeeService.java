@@ -25,10 +25,9 @@ public class TestEmployeeService {
 	@Rollback(value = false)
 	public void testCreateEmp(){
 		Employee employee = new Employee();
-		employee.setAccountId(1);
 		employee.setEmployeeName("TIM");
 		employee.setEmployeeEmail("TIM@cognizant.com");
-		empService.createEmployee(employee);
+		empService.saveOrUpdate(employee);
 	}
 	
 	@Test

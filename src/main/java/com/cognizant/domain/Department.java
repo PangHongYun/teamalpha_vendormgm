@@ -5,11 +5,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQueries({ 
-	@NamedQuery(name = "Department.findbyDepartmentNameAndComId", 
-			query = "SELECT d FROM Department d where d.dept_name=:dept_name AND d.com_id=:com_id") })
+@NamedQueries({
+		@NamedQuery(name = "Department.findbyDepartmentNameAndComId", query = "SELECT d FROM Department d where d.dept_name=:dept_name AND d.com_id=:com_id"),
+		@NamedQuery(name = "Department.findbyDepartmentId", query = "SELECT d FROM Department d where d.id=:id") })
 public class Department extends Base {
 
+	private static final long serialVersionUID = 7796929384286814899L;
 	Long com_id;
 	String dept_name;
 

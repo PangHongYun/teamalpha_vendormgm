@@ -10,5 +10,7 @@ public interface DepartmentService extends BaseService{
 
 	Department findbyDepartmentNameAndComId(String dept_name, Long com_id);
 
+	public Department findbyDepartmentId(Long d_id);
+
 
 }

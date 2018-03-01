@@ -15,4 +15,6 @@ public interface VendorService extends BaseService{
 	Vendor getUniqueVendor(String vendorEmail) throws CompanyMgmtException;
 	
 	List<VendorApp> getApplications(long vendorId) throws CompanyMgmtException;
+
+	Vendor getUniqueVendorById(Long v_id);
 }

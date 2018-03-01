@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cognizant.domain.Employee;
 import com.cognizant.domain.Vendor;
 import com.cognizant.services.VendorService;
 
@@ -17,51 +18,30 @@ import com.cognizant.services.VendorService;
 public class VendorController {
 
 	private final String prefixURL = "views";
-	
+
 	@Autowired
 	VendorService vendorService;
 
-	@RequestMapping(value = "/vendorView", method = RequestMethod.GET)
-	public ModelAndView showVendor(HttpServletRequest request,
-			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("vendorView");
-		Vendor v = (Vendor) request.getSession().getAttribute("vendor");
-		mav.addObject("vendorView", v);
+	@RequestMapping(value = "/vendorRegistrationProcess", method = RequestMethod.POST)
+	public ModelAndView editVendor(HttpServletRequest request,
+			HttpServletResponse response, @ModelAttribute("vendor") Vendor v) {
+		ModelAndView mav = null;
+		vendorService.saveOrUpdate(v);
+		String url = "vendorView";
+		mav = new ModelAndView(url);
+		request.getSession().setAttribute("vendor", v);
 		return mav;
 	}
 
-	@RequestMapping(value = "/viewAllApplication", method = RequestMethod.POST)
-	public ModelAndView viewAllApplied(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("vendorView") Vendor v) {
+	@RequestMapping(value = "/venEdit", method = RequestMethod.GET)
+	public ModelAndView editVen(HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView mav = null;
-		vendorService.findAll();
+		String vid = request.getParameter("id");
+		Vendor v = vendorService.getUniqueVendorById(Long.parseLong(vid));
+		String url = "vendorRegistration";
+		mav = new ModelAndView(url);
+		mav.addObject("vendor", v);
 		return mav;
 	}
-	@RequestMapping(value = "/submitVendorCert", method = RequestMethod.POST)
-	public ModelAndView submitVendorCert(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("vendorView") Vendor v) {
-		ModelAndView mav = null;
-		String url = "employeeRegistration";
-		mav = new ModelAndView(url);	
-		return mav;
-	}
-	@RequestMapping(value = "/submitVendorApplication", method = RequestMethod.POST)
-	public ModelAndView submitVendorAppl(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("vendorView") Vendor v) {
-		ModelAndView mav = null;
-		return mav;
-	}
-	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-	public ModelAndView changePassword(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("vendorView") Vendor v) {
-		ModelAndView mav = null;
-		return mav;
-	}
-	@RequestMapping(value = "/vendorRegistration", method = RequestMethod.POST)
-	public ModelAndView editVendor(HttpServletRequest request,
-			HttpServletResponse response, @ModelAttribute("vendorView") Vendor v) {
-		ModelAndView mav = null;
-		return mav;
-	}
-	
 }

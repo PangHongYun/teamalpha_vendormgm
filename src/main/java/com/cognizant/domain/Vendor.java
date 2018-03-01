@@ -7,11 +7,12 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Vendor.getUniqueVendor", query = "SELECT v FROM Vendor v WHERE v.vendorEmail=:vendorEmail"),
+	@NamedQuery(name = "Vendor.findbyId", query = "SELECT v FROM Vendor v WHERE v.id=:id"),
 	@NamedQuery(name = "Vendor.getAllApplications", query="SELECT v FROM VendorApp v WHERE v.vendorId=:vendorId")
 })
 public class Vendor extends Base{
 	
-	
+	private static final long serialVersionUID = -7081919101645535378L;
 	private String vendorName;
 	private String vendorAddress;
 	private String vendorRegistrationNumber;

@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = "Account.authenticateAccount", query = "SELECT a FROM Account a WHERE a.acc_email=:acc_email AND a.acc_password=:acc_password")
 })
 public class Account extends Base {
+private static final long serialVersionUID = 146942169418414000L;
 
 private	String acc_email;
 

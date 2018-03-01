@@ -75,7 +75,7 @@ public class VendorCertificateServiceImpl extends BaseServiceImpl<Long, VendorCe
 	@Override
 	public void saveOrUpdate(VendorCertification vendorCertification)
 			throws CompanyMgmtException {
-		VendorCertification vencert = dao.findByCertificateId(vendorCertification.getCertificate_Id());
+		VendorCertification vencert = findByCertificateId(vendorCertification.getCertificate_Id());
 		if( vencert == null){
 			dao.persist(vendorCertification);
 		}else{

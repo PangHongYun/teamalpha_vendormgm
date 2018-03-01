@@ -45,8 +45,8 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Long, Employee> impleme
 
 	@Override
 	public Employee findByEmployeeIdNo(String employeeIdNo) {
-		Map<String, String> queryParams = new HashMap<String, String>();
-		queryParams.put("employeeIdNo", employeeIdNo);
+		Map<String, Long> queryParams = new HashMap<String, Long>();
+		queryParams.put("employeeIdNo", Long.parseLong(employeeIdNo));
 		
 		List<Employee> emp = findByNamedQueryAndNamedParams("Employee.findByEmployeeIdNo", queryParams);
 		if(emp.size() > 1){
@@ -59,7 +59,7 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Long, Employee> impleme
 	}
 	
 	@Override
-	public void createEmployee(Employee employee) {
+	public void saveOrUpdate(Employee employee) {
 		
 		Employee emp = getUniqueEmployee(employee.getEmployeeEmail());
 		

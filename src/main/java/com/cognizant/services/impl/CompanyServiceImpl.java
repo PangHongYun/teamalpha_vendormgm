@@ -66,12 +66,12 @@ public class CompanyServiceImpl extends BaseServiceImpl<Long, Company>
 	
 	@Override
 	public void saveOrUpdate(Company company) throws CompanyMgmtException {
-	Company comp = companyDao.findByCompanyRegistrationNumber(company.getCompanyRegistrationNumber());
+	Company comp = findByRegistrationNumber(company.getCompanyRegistrationNumber());
 	
 	if(comp == null){
 		companyDao.persist(company);
 	}else{
-		company.setId(comp.getId());//incase we search via empty id
+		company.setId(comp.getId());
 		Mapper mapper = new DozerBeanMapper();
 		mapper.map(company, comp);
 		companyDao.merge(comp);

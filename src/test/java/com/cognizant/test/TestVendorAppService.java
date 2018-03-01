@@ -25,10 +25,10 @@ public class TestVendorAppService {
 	public void testVendorAppCreation(){
 		VendorApp venApp = new VendorApp();
 		venApp.setVendorAppDate("12/1/1991");
-		venApp.setVendorId(1231244);
-		venApp.setProjId(2132142);
+		venApp.setVendorId("19");
+		venApp.setProjId("26");
 		vendorAppService.saveOrUpdate(venApp);
-		VendorApp venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId(1231244, 2132142);
+		VendorApp venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId("19", "26");
 		Assert.assertEquals("12/1/1991", venApp1.getVendorAppDate());
 	}
 	
@@ -37,12 +37,12 @@ public class TestVendorAppService {
 	public void testVendorAppDelete(){
 		VendorApp venApp = new VendorApp();
 		venApp.setVendorAppDate("12/1/1991");
-		venApp.setVendorId(1231244);
-		venApp.setProjId(2132142);
+		venApp.setVendorId("19");
+		venApp.setProjId("26");
 		vendorAppService.saveOrUpdate(venApp);
-		VendorApp venApp1 = vendorAppService.findbyVendorAndProjId(1231244, 2132142);
+		VendorApp venApp1 = vendorAppService.findbyVendorAndProjId("19", "26");
 		vendorAppService.delete(venApp1.getId());
-		venApp1 = vendorAppService.findbyVendorAndProjId(1231244, 2132142);
+		venApp1 = vendorAppService.findbyVendorAndProjId("19", "26");
 		Assert.assertEquals(null, venApp1);
 	}
 	
@@ -51,13 +51,13 @@ public class TestVendorAppService {
 	public void testVendorAppUpdate(){
 		VendorApp venApp = new VendorApp();
 		venApp.setVendorAppDate("12/1/1991");
-		venApp.setVendorId(1231244);
-		venApp.setProjId(2132142);
+		venApp.setVendorId("19");
+		venApp.setProjId("26");
 		vendorAppService.saveOrUpdate(venApp);
-		VendorApp venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId(1231244, 2132142);
+		VendorApp venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId("19", "26");
 		venApp1.setVendorAppDate("10/10/2010");
 		vendorAppService.saveOrUpdate(venApp1);
-		venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId(1231244, 2132142);
+		venApp1= (VendorApp) vendorAppService.findbyVendorAndProjId("19", "26");
 		Assert.assertEquals("10/10/2010", venApp1.getVendorAppDate());
 	}
 }

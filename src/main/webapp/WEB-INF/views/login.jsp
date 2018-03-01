@@ -70,7 +70,7 @@
                           <li><span class="fa fa-check text-success"></span> Vendor Ratings <small>(Choose the right one)</small></li>
                          <li><a href="${pageContext.request.contextPath}/static/readMe.html"><u>Read more</u></a></li>
                       </ul>
-                      <p><a href="/new-customer/" class="btn btn-info btn-block">Yes please, register now!</a></p>
+                      <p><a href="/registration" class="btn btn-info btn-block">Yes please, register now!</a></p>
                   </div>
               </div>
           </div>

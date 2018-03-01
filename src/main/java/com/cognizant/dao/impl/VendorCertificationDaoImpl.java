@@ -42,15 +42,5 @@ public class VendorCertificationDaoImpl extends JpaDAOImpl<Long, VendorCertifica
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-
-	@Override
-	public VendorCertification findByCertificateId(Long certificate_Id) {
-		
-		return null;
-	}
-
-	
-
-	
 	
 }

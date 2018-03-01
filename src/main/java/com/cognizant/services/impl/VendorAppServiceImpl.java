@@ -57,8 +57,8 @@ public class VendorAppServiceImpl extends BaseServiceImpl<Long, VendorApp> imple
 	
 	}
 	
-	public VendorApp findbyVendorAndProjId(long vendorId,long projId){
-		Map<String,Long>map=new HashMap<String,Long>();
+	public VendorApp findbyVendorAndProjId(String vendorId,String projId){
+		Map<String,String>map=new HashMap<String,String>();
 		map.put("vendorId",vendorId);
 		map.put("projId", projId);
 		
@@ -70,6 +70,15 @@ public class VendorAppServiceImpl extends BaseServiceImpl<Long, VendorApp> imple
 			return null;
 		}
 		return vendorApp.get(0);
+	}
+
+	@Override
+	public List<VendorApp> findbyProjId(String id) {
+		Map<String,String>map=new HashMap<String,String>();
+		map.put("projId", id);
+		
+		List<VendorApp> vendorApp= findByNamedQueryAndNamedParams("VendorApp.findbyProjId",map);
+		return vendorApp;
 	}
 
 

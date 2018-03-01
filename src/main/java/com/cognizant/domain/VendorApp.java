@@ -6,7 +6,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="VendorApp.findbyVendorAndProjId", query="SELECT v FROM VendorApp v where v.vendorId=:vendorId AND v.projId=:projId")
+	@NamedQuery(name="VendorApp.findbyVendorAndProjId", query="SELECT v FROM VendorApp v where v.vendorId=:vendorId AND v.projId=:projId"),
+	@NamedQuery(name="VendorApp.findbyProjId", query="SELECT v FROM VendorApp v where v.projId=:projId")
 })
 public class VendorApp extends Base{
 
@@ -17,9 +18,19 @@ public class VendorApp extends Base{
 	
 	String vendorAppDate;
 
-	long vendorId;
+	String vendorId;
 	
-	long projId;
+	String projId;
+	
+	int AppStatus;
+
+	public int getAppStatus() {
+		return AppStatus;
+	}
+
+	public void setAppStatus(int appStatus) {
+		AppStatus = appStatus;
+	}
 
 	public String getVendorAppDate() {
 		return vendorAppDate;
@@ -29,19 +40,19 @@ public class VendorApp extends Base{
 		this.vendorAppDate = vendorAppDate;
 	}
 
-	public long getVendorId() {
+	public String getVendorId() {
 		return vendorId;
 	}
 
-	public void setVendorId(long vendorId) {
+	public void setVendorId(String vendorId) {
 		this.vendorId = vendorId;
 	}
 
-	public long getProjId() {
+	public String getProjId() {
 		return projId;
 	}
 
-	public void setProjId(long projId) {
+	public void setProjId(String projId) {
 		this.projId = projId;
 	}
 

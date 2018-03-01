@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cognizant.domain.Account;
 import com.cognizant.domain.Employee;
+import com.cognizant.domain.Vendor;
 import com.cognizant.services.AccountService;
 
 @Controller
@@ -45,6 +46,9 @@ public class RegistrationController {
 			if(type==1){
 				String url = "vendorRegistration";
 				mav = new ModelAndView(url);
+				Vendor v=new Vendor();
+				v.setVendorEmail(registration.getAcc_email());
+				mav.addObject("vendor",v);
 				return mav;
 			}
 			else if(type==2){

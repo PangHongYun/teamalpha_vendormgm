@@ -1,5 +1,7 @@
 package com.cognizant.services;
 
+import java.util.List;
+
 import com.cognizant.common.CompanyMgmtException;
 import com.cognizant.domain.Tender;
 
@@ -14,5 +16,7 @@ public interface TenderService extends BaseService {
 
 	public void deleteTenderProject(Long Project_ID)
 			throws CompanyMgmtException;
+	public List<Tender> findbyDeptId(Long id);
+
 
 }

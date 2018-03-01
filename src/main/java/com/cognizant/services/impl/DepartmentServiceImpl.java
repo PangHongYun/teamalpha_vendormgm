@@ -73,6 +73,21 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Long, Department> imp
 		return depts.get(0);
 	}
 
+	@Override
+	public Department findbyDepartmentId(Long d_id) {
+		Map<String,Long>map=new HashMap<String,Long>();
+		map.put("id",d_id);
+		
+		List<Department> depts= findByNamedQueryAndNamedParams("Department.findbyDepartmentId",map);
+		if(depts.size()>1){
+			throw new CompanyMgmtException("Too_many_department_by_same_id");
+		}
+		if(depts.size()==0){
+			return null;
+		}
+		return depts.get(0);
+	}
+
 	
 	
 	

@@ -95,7 +95,7 @@ public class TenderServiceImpl extends BaseServiceImpl<Long, Tender>
 	@Override
 	public Tender findProjectID(Long Project_ID) throws CompanyMgmtException {
 		Map<String, Long> queryParams = new HashMap<String, Long>();
-		queryParams.put("Project_ID", Project_ID);
+		queryParams.put("id", Project_ID);
 		
 		List<Tender> cT = findByNamedQueryAndNamedParams("createTender.findProjectID", queryParams);
 		if(cT.size() > 1){
@@ -107,5 +107,13 @@ public class TenderServiceImpl extends BaseServiceImpl<Long, Tender>
 	     return cT .get(0);
 	}
 
+	@Override
+	public List<Tender> findbyDeptId(Long id) {
+		Map<String, String> queryParams = new HashMap<String, String>();
+		queryParams.put("Project_Dept", Long.toString(id));
+		
+		List<Tender> cT = findByNamedQueryAndNamedParams("createTender.findbyDeptId", queryParams);
+	     return cT;
+	}
 	
 		}
