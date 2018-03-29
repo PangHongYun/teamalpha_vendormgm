@@ -37,7 +37,7 @@
 <body>
 	<!--Navbar-->
 	<div class="title-header">
-		<h1 align="center">Vendor Page View</h1>
+		<h1 align="center">Employee Page View</h1>
 	</div>
 	<!--end of top header title-->
 	<div class="navbar-header" width="auto">
@@ -57,14 +57,15 @@
 						class="dropdown-toggle">Actions<span class="caret"></span></a>
 						<ul class=" dropdown-menu">
 							<li><a
-								href='venAppList?id=<%=( (Vendor)session.getAttribute("vendor")).getId()%>'>View
-									Application^</a></li>
+								href='comEdit?name=<%=((Employee)session.getAttribute("employee")).getCompany_name()%>&id=<%=( (Employee)session.getAttribute("employee")).getId()%>'>Edit
+									Company</a></li>
+							<li><a href="#">Edit Department^</a></li>
 							<li><a
-								href='viewCert?id=<%=( (Vendor)session.getAttribute("vendor")).getId()%>'>View
-									Certifications</a></li>
+								href='viewTender?id=<%=((Employee)session.getAttribute("employee")).getId()%>'>Show
+									Tender</a></li>
 							<li><a
-								href='certCreation?id=<%=( (Vendor)session.getAttribute("vendor")).getId()%>'>Submit
-									Certifications</a></li>
+								href='tenderCreation?id=<%=((Employee)session.getAttribute("employee")).getId()%>'>Create
+									Tender</a></li>
 						</ul>
 				</ul>
 				<ul>
@@ -73,17 +74,17 @@
 			</li>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
+					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
 						<strong>User</strong> <span
 						class="glyphicon glyphicon-chevron-down"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a
-							href='passwordChange?id=<%=( (Vendor)session.getAttribute("vendor")).getId()%>'><button
+							href='passwordChange?id=<%=( (Employee)session.getAttribute("employee")).getId()%>'><button
 									type="button" class="btn btn-info btn-medium"
 									data-toggle="modal" data-target="#myModal">Change
 									Password</button></a> <a
-							href='venEdit?id=<%=( (Vendor)session.getAttribute("vendor")).getId()%>'><button
+							href='empEdit?id=<%=( (Employee)session.getAttribute("employee")).getId()%>'><button
 									type="button" class="btn btn-info btn-medium"
 									data-toggle="modal" data-target="#myModal">Edit
 									Profile</button></a>
@@ -130,18 +131,22 @@
 						<thead>
 							<tr>
 								<th>Project Name</th>
-								<th>Project Owner</th>
+								<th>Project Creator</th>
 								<th>Description</th>
-								<th>Actions</th>
+								<th colspan="3">Actions</th>
 							</tr>
 						</thead>
 						<tbody id="vendorsList">
 							<c:forEach var="tender" items="${tenders}">
 								<tr>
 									<td>${tender.project_Name}</td>
-									<td>${tender.project_Dept}</td>
+									<td>${tender.project_Incharge}</td>
 									<td>${tender.project_Description}</td>
 									<td><button>View Details</button></td>
+									<td><a
+										href='tenderEdit?id=<%=((Employee)session.getAttribute("employee")).getId()%>&tenId=${tender.id}'><button>Edit</button></a></td>
+									<td><a
+										href='tenderDelete?id=<%=((Employee)session.getAttribute("employee")).getId()%>&tenId=${tender.id}'><button>Delete</button></a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -151,7 +156,6 @@
 					<ul class="pagination pagination-lg pager" id="myPager"></ul>
 				</div>
 			</div>
-
 
 			<script>
 				$(document).ready(

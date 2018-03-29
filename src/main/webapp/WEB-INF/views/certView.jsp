@@ -10,7 +10,7 @@
 <%@ page import="java.util.*, com.cognizant.domain.*"%>
 
 <%
-	List<Tender> tenders = (List<Tender>)session.getAttribute("tenders");
+	List<VendorCertification> certs = (List<VendorCertification>)session.getAttribute("certs");
 %>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -73,7 +73,7 @@
 			</li>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
+					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
 						<strong>User</strong> <span
 						class="glyphicon glyphicon-chevron-down"></span>
 				</a>
@@ -129,19 +129,21 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Project Name</th>
-								<th>Project Owner</th>
-								<th>Description</th>
-								<th>Actions</th>
+								<th>Certificate Name</th>
+								<th>Certificate File Path</th>
+								<th colspan="3">Actions</th>
 							</tr>
 						</thead>
 						<tbody id="vendorsList">
-							<c:forEach var="tender" items="${tenders}">
+							<c:forEach var="cert" items="${certs}">
 								<tr>
-									<td>${tender.project_Name}</td>
-									<td>${tender.project_Dept}</td>
-									<td>${tender.project_Description}</td>
+									<td>${cert.certificate_name}</td>
+									<td>${cert.certificate_path}</td>
 									<td><button>View Details</button></td>
+									<td><a
+										href='certEdit?id=&<%=((Vendor)session.getAttribute("vendor")).getId()%>vcId=${cert.id}'><button>Edit</button></a></td>
+									<td><a
+										href='certDelete?id=<%=((Vendor)session.getAttribute("vendor")).getId()%>&vcId=${cert.id}'><button>Delete</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -152,7 +154,7 @@
 				</div>
 			</div>
 
-
+			
 			<script>
 				$(document).ready(
 						function(e) {

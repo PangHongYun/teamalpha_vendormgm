@@ -18,9 +18,16 @@ public class Tender extends Base{
 
 	String Project_Description;
 
+	String Project_Name;
 	String Project_Incharge;
 
-	String Project_Name;
+	public String getProject_Incharge() {
+		return Project_Incharge;
+	}
+
+	public void setProject_Incharge(String project_Incharge) {
+		Project_Incharge = project_Incharge;
+	}
 
 	public String getProject_Dept() {
 		return Project_Dept;
@@ -28,10 +35,6 @@ public class Tender extends Base{
 
 	public String getProject_Description() {
 		return Project_Description;
-	}
-
-	public String getProject_Incharge() {
-		return Project_Incharge;
 	}
 
 	public String getProject_Name() {
@@ -46,13 +49,10 @@ public class Tender extends Base{
 		Project_Description = project_Description;
 	}
 
-	public void setProject_Incharge(String project_Incharge) {
-		Project_Incharge = project_Incharge;
-	}
-
 	public void setProject_Name(String project_Name) {
 		Project_Name = project_Name;
 	}
+
 
 
 }

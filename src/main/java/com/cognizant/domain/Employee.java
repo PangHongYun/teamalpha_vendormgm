@@ -7,7 +7,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name ="Employee.getUniqueEmployee", query="SELECT e FROM Employee e WHERE e.employeeEmail=:empEmail"),
-	@NamedQuery(name ="Employee.findByEmployeeIdNo", query="SELECT e FROM Employee e WHERE e.id=:employeeIdNo")
+	@NamedQuery(name ="Employee.findByEmployeeIdNo", query="SELECT e FROM Employee e WHERE e.id=:employeeIdNo"),
+	@NamedQuery(name ="Employee.getEmployeeByDeptNameAndComId", query="SELECT e FROM Employee e WHERE e.employeeDepartment=:dept_name AND e.company_name=:com_name")
 	})
 public class Employee extends Base {
 

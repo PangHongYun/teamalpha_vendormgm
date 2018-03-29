@@ -75,17 +75,26 @@ public class VendorCertificateServiceImpl extends BaseServiceImpl<Long, VendorCe
 	@Override
 	public void saveOrUpdate(VendorCertification vendorCertification)
 			throws CompanyMgmtException {
-		VendorCertification vencert = findByCertificateId(vendorCertification.getCertificate_Id());
+		VendorCertification vencert = findByCertificateId(vendorCertification.getId());
 		if( vencert == null){
 			dao.persist(vendorCertification);
 		}else{
-			vendorCertification.setCertificate_Id(vencert.getCertificate_Id());
+			vendorCertification.setId(vencert.getId());
 			Mapper mapper = new DozerBeanMapper();
 			mapper.map(vendorCertification, vencert);
 			dao.merge(vencert);
 			
 		}
 		
+	}
+
+	@Override
+	public List<VendorCertification> findByVendorId(Long vid) {
+		Map<String, String> queryParams = new HashMap<String, String>();
+		queryParams.put("vendor_Id",Long.toString(vid));
+		
+		List<VendorCertification> vencert = findByNamedQueryAndNamedParams("VendorCertification.findByVendorId", queryParams);
+		return vencert;
 	}
     
     

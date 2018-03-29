@@ -1,32 +1,23 @@
 package com.cognizant.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name="VendorCertification.findByCertificateId", 
-		query="SELECT v FROM VendorCertification v WHERE v.certificate_Id=:certificate_Id")})
-public class VendorCertification {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long certificate_Id;
+			query="SELECT v FROM VendorCertification v WHERE v.id=:certificate_Id"),
+			@NamedQuery(name="VendorCertification.findByVendorId", 
+			query="SELECT v FROM VendorCertification v WHERE v.vendor_Id=:vendor_Id")})
+public class VendorCertification extends Base{
 	
+	private static final long serialVersionUID = -7503817170501893656L;
+
 	private String vendor_Id;
 	
+	private String certificate_name;
+	
 	private String certificate_path;
-
-	public Long getCertificate_Id() {
-		return certificate_Id;
-	}
-
-	public void setCertificate_Id(Long certificate_Id) {
-		this.certificate_Id = certificate_Id;
-	}
 
 	public String getVendor_Id() {
 		return vendor_Id;
@@ -44,11 +35,12 @@ public class VendorCertification {
 		this.certificate_path = certificate_path;
 	}
 
-	@Override
-	public String toString() {
-		return "VendorCertification [certificate_Id=" + certificate_Id
-				+ ", vendor_Id=" + vendor_Id + ", certificate_path="
-				+ certificate_path + "]";
+	public String getCertificate_name() {
+		return certificate_name;
+	}
+
+	public void setCertificate_name(String certificate_name) {
+		this.certificate_name = certificate_name;
 	}
 	
 	

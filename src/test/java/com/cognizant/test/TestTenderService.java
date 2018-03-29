@@ -44,10 +44,10 @@ public class TestTenderService {
 	@Test
 	@Rollback(value = false)
 	public void testCertUpdate(){
-		Tender ten  = tenderService.findProjectID(1L);
+		Tender ten  = tenderService.findProjectID(21L);
 		ten.setProject_Description("kill zombies");
 		tenderService.saveOrUpdate(ten);
-		System.out.println(tenderService.find(1L));
+		System.out.println(tenderService.find(21L));
 	}
 	
 	@Test

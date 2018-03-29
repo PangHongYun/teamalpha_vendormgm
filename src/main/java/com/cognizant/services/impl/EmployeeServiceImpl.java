@@ -88,6 +88,17 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Long, Employee> impleme
         }
         return employees.get(0);
 	}
+
+	@Override
+	public List<Employee> findByEmployeeDeptAndCompany(String old_name,
+			String com_name) {
+		Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("dept_name", old_name);
+        queryParams.put("com_name", com_name);        
+        
+        List<Employee> employees = findByNamedQueryAndNamedParams("Employee.getEmployeeByDeptNameAndComId", queryParams);
+        return employees;
+	}
 	
 	
 }

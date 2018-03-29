@@ -79,8 +79,8 @@ public class LoginController {
 					String url = "vendorView";
 					mav = new ModelAndView(url);
 					List<Tender> tenders=tenderService.findAll();
-					int size=tenders.size();
-					for(int i=0;i<size;i++){
+					int Tensize=tenders.size();
+					for(int i=0;i<Tensize;i++){
 						Long d_id=Long.parseLong(tenders.get(i).getProject_Dept());
 						Department dept=departmentService.findbyDepartmentId(d_id);
 						Company com=(Company) companyService.find(dept.getCom_id());

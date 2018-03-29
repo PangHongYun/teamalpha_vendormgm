@@ -62,7 +62,6 @@ public class TenderServiceImpl extends BaseServiceImpl<Long, Tender>
      return cT.get(0);
 	}
 
-	
 	@Override
 	public void saveOrUpdate(Tender tender) throws CompanyMgmtException {
 		Tender cT = findProjectID(tender.getId());

@@ -1,4 +1,3 @@
-<%@page import="com.cognizant.domain.Employee"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -38,7 +37,7 @@
 <body>
 	<!--Navbar-->
 	<div class="title-header">
-		<h1 align="cente">Employee Page View</h1>
+		<h1 align="center">Employee Page View</h1>
 	</div>
 	<!--end of top header title-->
 	<div class="navbar-header" width="auto">
@@ -57,33 +56,43 @@
 					<li class="dropdown"><a data-toggle="dropdown"
 						class="dropdown-toggle">Actions<span class="caret"></span></a>
 						<ul class=" dropdown-menu">
-							<li><a href='comEdit?name=<%=( (Employee)session.getAttribute("employee")).getCompany_name()%>&id=<%=( (Employee)session.getAttribute("employee")).getId()%>'>Edit Company</a></li>
-							<li><a href="#">Edit Department^</a></li>
-							<li><a href="#">Create Tender^</a></li>
-							<li><a href="#">Edit Tender^</a></li>
+							<li><a
+								href='comEdit?name=<%=((Employee)session.getAttribute("employee")).getCompany_name()%>&id=<%=( (Employee)session.getAttribute("employee")).getId()%>'>Edit
+									Company</a></li>
+							<li><a
+								href='departmentEdit?id=<%=((Employee)session.getAttribute("employee")).getId()%>'>Edit
+									Department^</a></li>
+							<li><a
+								href='viewTender?id=<%=((Employee)session.getAttribute("employee")).getId()%>'>Show
+									Tender</a></li>
+							<li><a
+								href='tenderCreation?id=<%=((Employee)session.getAttribute("employee")).getId()%>'>Create
+									Tender</a></li>
 						</ul>
 				</ul>
 				<ul>
-				</div>
-				</ul>
-				</li>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>�
-							<strong>User</strong> <span
-							class="glyphicon glyphicon-chevron-down"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li>
-								<button type="button" class="btn btn-info btn-medium"
-									data-toggle="modal" data-target="#myModal">Change
-									Password^</button>
-								<a href='empEdit?id=<%=( (Employee)session.getAttribute("employee")).getId()%>'><button type="button" class="btn btn-info btn-medium"
-									data-toggle="modal" data-target="#myModal">Edit Profile</button></a>
-								<button class="btn btn-danger">Logout^</button>
-							</li>
-						</ul>
 			</div>
+			</ul>
+			</li>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>�
+						<strong>User</strong> <span
+						class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a
+							href='passwordChange?id=<%=( (Employee)session.getAttribute("employee")).getId()%>'><button
+									type="button" class="btn btn-info btn-medium"
+									data-toggle="modal" data-target="#myModal">Change
+									Password</button></a> <a
+							href='empEdit?id=<%=( (Employee)session.getAttribute("employee")).getId()%>'><button
+									type="button" class="btn btn-info btn-medium"
+									data-toggle="modal" data-target="#myModal">Edit
+									Profile</button></a>
+							<button class="btn btn-danger">Logout^</button></li>
+					</ul>
+		</div>
 		</nav>
 		<!--  Search bar -->
 		<div class="container">
@@ -144,170 +153,131 @@
 				</div>
 			</div>
 
-			<!-- Modal -->
-			<div class="modal fade" id="myModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Change Password</h4>
-						</div>
-						<div class="modal-body">
-							<!--- content of modal here--->
-							<label>Old Password<span class="mandatory">*</span></label> <input
-								type="password" class="form-control" id="oldPassword"
-								name="oldPassword" value="" required="true"
-								placeholder="Old Password"> <label>New Password<span
-								class="mandatory">*</span></label> <input type="password"
-								class="form-control" id="newPassword" name="newPassword"
-								value="" required="true" placeholder="New Password"> <label>Confirm
-								new Password<span class="mandatory">*</span>
-							</label> <input type="password" class="form-control"
-								id="confirmNewPassword" name="confirmNewPassword" value=""
-								required="true" placeholder="Confirm New Password">
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success btn-block"
-								onclick="validateChangePassword()">Change Paasword</button>
-							<!--Cancel button -->
-							<button type="cancel" class="btn btn-danger btn-block">Cancel</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<script>
-<!--- modal to change password-->
-function validateChangePassword(){
-var oldPassword = $('#oldPassword').val();
-var newPassword = $('#newPassword').val();
-var confirmNewPassword = $('#confirmNewPassword').val();
-if(oldPassword== newPassword) {
-	alert("passwords match, please choose a new password");
-}
-else{
-if(newPassword!= confirmNewPassword) {
-alert("passwords dont match, please choose a new password");
-}
-}
-}
- 
-$(document).ready(function(e){
-$('.search-panel .dropdown-menu').find('a').click(function(e) {
-e.preventDefault();
-var param = $(this).attr("href").replace("#","");
-var concept = $(this).text();
-$('.search-panel span#search_concept').text(concept);
-$('.input-group #search_param').val(param);
-});
-});
- 
+				$(document).ready(
+						function(e) {
+							$('.search-panel .dropdown-menu').find('a').click(
+									function(e) {
+										e.preventDefault();
+										var param = $(this).attr("href")
+												.replace("#", "");
+										var concept = $(this).text();
+										$('.search-panel span#search_concept')
+												.text(concept);
+										$('.input-group #search_param').val(
+												param);
+									});
+						});
 
- 
+				$.fn.pageMe = function(opts) {
+					var $this = this, defaults = {
+						perPage : 7,
+						showPrevNext : false,
+						hidePageNumbers : false
+					}, settings = $.extend(defaults, opts);
+					var listElement = $this;
+					var perPage = settings.perPage;
+					var children = listElement.children();
+					var pager = $('.pager');
 
-$.fn.pageMe = function(opts){
-	var $this = this,
-	defaults = {
-	perPage: 7,
-	showPrevNext: false,
-	hidePageNumbers: false
-	},
-	settings = $.extend(defaults, opts);
-	var listElement = $this;
-	var perPage = settings.perPage;
-	var children = listElement.children();
-	var pager = $('.pager');
-   
-	if (typeof settings.childSelector!="undefined") {
-		children = listElement.find(settings.childSelector);
-	}
-	   
-	if (typeof settings.pagerSelector!="undefined") {
-		pager = $(settings.pagerSelector);
-	}
-   
-	var numItems = children.size();
-	var numPages = Math.ceil(numItems/perPage);
- 
-	pager.data("curr",0);
-	if (settings.showPrevNext){
-		$('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
-	}
-   
-	var curr = 0;
-	while(numPages > curr && (settings.hidePageNumbers==false)){
-		$('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
-		curr++;
-	}
-   
-	if (settings.showPrevNext){
-		$('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
-	}
-	pager.find('.page_link:first').addClass('active');
-	pager.find('.prev_link').hide();
-	if (numPages<=1) {
-		pager.find('.next_link').hide();
-	}
-	pager.children().eq(1).addClass("active");
-	children.hide();
-	children.slice(0, perPage).show();
-	pager.find('li .page_link').click(function(){
-	var clickedPage = $(this).html().valueOf()-1;
-	goTo(clickedPage,perPage);
-	return false;
-	});
-	pager.find('li .prev_link').click(function(){
-	previous();
-	return false;
-	});
-	pager.find('li .next_link').click(function(){
-	next();
-	return false;
-});
- 
-	function previous(){
-		var goToPage = parseInt(pager.data("curr")) - 1;
-		goTo(goToPage);
-	}
-	 
-	function next(){
-		goToPage = parseInt(pager.data("curr")) + 1;
-		goTo(goToPage);
-	}
-   
-	function goTo(page){
-		var startAt = page * perPage,
-		endOn = startAt + perPage;
-		children.css('display','none').slice(startAt, endOn).show(); 
-		 
-		if (page>=1) {
-			pager.find('.prev_link').show();
-		}
- 
-		else {
-			pager.find('.prev_link').hide();
-		}
-		 
-		if (page<(numPages-1)) {
-			pager.find('.next_link').show();
-		}
-		else {
-			pager.find('.next_link').hide();
-		}
- 
-		pager.data("curr",page);
-		pager.children().removeClass("active");
-		pager.children().eq(page+1).addClass("active");
-	}
-};
- 
-$(document).ready(function(){
-   
-$('#vendorsList').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:4});
-   
-});
- 
-</script>
+					if (typeof settings.childSelector != "undefined") {
+						children = listElement.find(settings.childSelector);
+					}
+
+					if (typeof settings.pagerSelector != "undefined") {
+						pager = $(settings.pagerSelector);
+					}
+
+					var numItems = children.size();
+					var numPages = Math.ceil(numItems / perPage);
+
+					pager.data("curr", 0);
+					if (settings.showPrevNext) {
+						$('<li><a href="#" class="prev_link">«</a></li>')
+								.appendTo(pager);
+					}
+
+					var curr = 0;
+					while (numPages > curr
+							&& (settings.hidePageNumbers == false)) {
+						$(
+								'<li><a href="#" class="page_link">'
+										+ (curr + 1) + '</a></li>').appendTo(
+								pager);
+						curr++;
+					}
+
+					if (settings.showPrevNext) {
+						$('<li><a href="#" class="next_link">»</a></li>')
+								.appendTo(pager);
+					}
+					pager.find('.page_link:first').addClass('active');
+					pager.find('.prev_link').hide();
+					if (numPages <= 1) {
+						pager.find('.next_link').hide();
+					}
+					pager.children().eq(1).addClass("active");
+					children.hide();
+					children.slice(0, perPage).show();
+					pager.find('li .page_link').click(function() {
+						var clickedPage = $(this).html().valueOf() - 1;
+						goTo(clickedPage, perPage);
+						return false;
+					});
+					pager.find('li .prev_link').click(function() {
+						previous();
+						return false;
+					});
+					pager.find('li .next_link').click(function() {
+						next();
+						return false;
+					});
+
+					function previous() {
+						var goToPage = parseInt(pager.data("curr")) - 1;
+						goTo(goToPage);
+					}
+
+					function next() {
+						goToPage = parseInt(pager.data("curr")) + 1;
+						goTo(goToPage);
+					}
+
+					function goTo(page) {
+						var startAt = page * perPage, endOn = startAt + perPage;
+						children.css('display', 'none').slice(startAt, endOn)
+								.show();
+
+						if (page >= 1) {
+							pager.find('.prev_link').show();
+						}
+
+						else {
+							pager.find('.prev_link').hide();
+						}
+
+						if (page < (numPages - 1)) {
+							pager.find('.next_link').show();
+						} else {
+							pager.find('.next_link').hide();
+						}
+
+						pager.data("curr", page);
+						pager.children().removeClass("active");
+						pager.children().eq(page + 1).addClass("active");
+					}
+				};
+
+				$(document).ready(function() {
+
+					$('#vendorsList').pageMe({
+						pagerSelector : '#myPager',
+						showPrevNext : true,
+						hidePageNumbers : false,
+						perPage : 4
+					});
+
+				});
+			</script>
 </body>
 </html>
